@@ -1,0 +1,13 @@
+**/bin
+.DS_Store
+*/.DS_Store
+.DS_Store?
+/.metadata/
+target/
+target
+/target
+/target/
+.idea/
+*.iml
+chromedriver
+geckodriver
