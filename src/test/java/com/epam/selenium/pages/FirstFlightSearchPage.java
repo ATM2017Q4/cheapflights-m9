@@ -68,7 +68,6 @@ public class FirstFlightSearchPage extends Page {
                 .build()
                 .perform();
         waitForJSandJQueryToLoad();
-        //new WebDriverWait(driver,10).until(ExpectedConditions.attributeToBe(load, "class", "resultsListCover tl"));
         return this;
     }
 

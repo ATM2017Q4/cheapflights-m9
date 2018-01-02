@@ -39,7 +39,8 @@ public class CheapFlightsTest {
 
     @Parameters({"origin", "destination", "period", "startDate", "endDate", "numberOfAdults"})
     @Test(description = "Fill in form on the empty Home Page")
-    public void fillInForm(String origin, String destination, String period, String startDate, String endDate, int numberOfAdults) {
+    public void fillInForm(String origin, String destination, String period,
+                           String startDate, String endDate, int numberOfAdults) {
         WebElement originField = driver.findElement(By.name("origin"));
         if (originField.getAttribute("value").equals("")) {
             EmptyHomePage hp1 = new EmptyHomePage(driver);
@@ -60,9 +61,11 @@ public class CheapFlightsTest {
         }
 
     }
-    @Parameters({"searchPageUrl", "dollarSign", "sumPattern", "currencySymbolXpath", "sumXpath", "cheapestFlightXpath"})
+
+    @Parameters({"searchPageUrl", "dollarSign", "sumPattern", "currencySymbolXpath", "sumXpath", "cheapestFlightXpath", "sliderDivider", "sliderMultiplier"})
     @Test(description = "Filter results", dependsOnMethods = "fillInForm")
-    public void filterResults(String searchPageUrl, String dollarSign, String sumPattern, String currencySymbolXpath, String sumXpath, String cheapestFlightXpath) {
+    public void filterResults(String searchPageUrl, String dollarSign, String sumPattern, String currencySymbolXpath,
+                              String sumXpath, String cheapestFlightXpath, int sliderDivider, int sliderMultiplier) {
         FirstFlightSearchPage sp1 = new FirstFlightSearchPage(driver);
         SecondFligthtSearchPage sp2 = new SecondFligthtSearchPage(driver);
         for (String winHandle : driver.getWindowHandles()) {
@@ -72,12 +75,12 @@ public class CheapFlightsTest {
         new WebDriverWait(driver, 30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(@class, 'logo')]//a[@href='/']"))));
         if (driver.getCurrentUrl().contains(searchPageUrl)) {
             sp1.chooseNonstopFlights()
-                    .modifyDuration(4, 3)
+                    .modifyDuration(sliderDivider, sliderMultiplier)
                     .sortByCheapest();
             Assert.assertTrue(sp1.getElementText(cheapestFlightXpath).matches(sumPattern));
         } else {
             sp2.chooseNonStopFligths()
-                    .modifyDuration(4, 3)
+                    .modifyDuration(sliderDivider, sliderMultiplier)
                     .closeFilters();
             Assert.assertTrue(sp2.getElementText(currencySymbolXpath).equals(dollarSign));
             Assert.assertTrue(sp2.getElementText(sumXpath).matches(sumPattern));

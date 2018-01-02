@@ -20,6 +20,8 @@
                         <parameter name="currencySymbolXpath" value="//div[@class='quicklink cheapest clearfix selected-filter']//span[@class='symbol']"/>
                         <parameter name="sumXpath" value="//div[@class='quicklink cheapest clearfix selected-filter']//span[@class='value']"/>
                         <parameter name="cheapestFlightXpath" value="(//div[@class='above-button']//a[@class='booking-link']/span[@class='price option-text'])[1]"/>
+                        <parameter name="sliderDivider" value="4"></parameter>
+                        <parameter name="sliderMultiplier" value="3"></parameter>
                     </include>
                 </methods>
             </class>
