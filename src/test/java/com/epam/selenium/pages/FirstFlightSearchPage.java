@@ -46,7 +46,7 @@ public class FirstFlightSearchPage extends Page {
         } catch (org.openqa.selenium.NoSuchElementException e) {
             logger.log(Level.SEVERE, "Driver was not able to find the element by the specified locator." + e);
         } finally {
-            waitForVisibilityFluently(twoStops, 100, 5);
+            waitForJSandJQueryToLoad();
             oneStop.click();
             waitForJSandJQueryToLoad();
             twoStops.click();

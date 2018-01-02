@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 
-public class Page extends BasePage {
+public abstract class Page extends BasePage {
 
     protected WebDriver driver;
     protected Logger logger = Logger.getLogger(this.getClass().getName());

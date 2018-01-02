@@ -69,9 +69,8 @@ public class CheapFlightsTest {
             driver.switchTo().window(winHandle);
         }
 
-        new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(@class, 'logo')]//a[@href='/']"))));
+        new WebDriverWait(driver, 30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(@class, 'logo')]//a[@href='/']"))));
         if (driver.getCurrentUrl().contains(searchPageUrl)) {
-
             sp1.chooseNonstopFlights()
                     .modifyDuration(4, 3)
                     .sortByCheapest();
