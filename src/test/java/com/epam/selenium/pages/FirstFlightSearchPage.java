@@ -41,6 +41,7 @@ public class FirstFlightSearchPage extends Page {
             waitForVisibilityFluently(twoStops, 100, 5);
         } catch (org.openqa.selenium.TimeoutException e) {
             System.out.println("Driver was not able to find the specfied element after timeout. Please, refer to the message for more info. " + e.getMessage());
+            waitForVisibilityFluently(twoStops, 100, 5);
         } catch (org.openqa.selenium.NoSuchElementException e) {
             System.out.println("Driver was not able to find the element by the specified locator. Please, refer to the message for more info. " + e.getMessage());
         } finally {

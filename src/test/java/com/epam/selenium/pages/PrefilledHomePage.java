@@ -61,6 +61,9 @@ public class PrefilledHomePage extends Page {
     @LocateBy(attributes = XPATH,  value = "(//div[@class='weeks'])[3]//div[contains(text(), '?')]")
     private Element finishDate;
 
+    @LocateBy(attributes = XPATH, value = "//div[contains(text(), '?')]")
+    private Element october;
+
     private By dates = By.xpath("(//div[@class='weeks'])[3]//div[@class='day']");
 
     public PrefilledHomePage chooseOrigin(String from) {

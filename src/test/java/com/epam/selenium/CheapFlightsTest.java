@@ -11,22 +11,16 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
 import java.util.concurrent.TimeUnit;
 
 public class CheapFlightsTest {
 
     private WebDriver driver;
-
-    private final String URL = "https://cheapflights.com/";
-    private final String SEARCHPAGEURL = "https://global.cheapflights.com/flight-search/MOW-TYO/";
-
-    private final String DOLLARSIGN = "$";
-    private String sumPattern = "[\\$\\r\\n]*(([0-5][0-4][0-9])|([0-4][0-9][0-9]))[.\\r\\n]*";
-    private String currencySymbol = "//div[@class='quicklink cheapest clearfix selected-filter']//span[@class='symbol']";
-    private String sum = "//div[@class='quicklink cheapest clearfix selected-filter']//span[@class='value']";
-    private String cheapestFlight = "(//div[@class='above-button']//a[@class='booking-link']/span[@class='price option-text'])[1]";
 
     @BeforeClass
     public void launchBrowser() {
@@ -36,59 +30,64 @@ public class CheapFlightsTest {
         driver.manage().window().maximize();
     }
 
+    @Parameters({"url"})
     @BeforeClass(dependsOnMethods = "launchBrowser", description = "Add implicit wait and maximize window")
-    public void openUrl() {
-        driver.get(URL);
+    public void openUrl(String url) {
+        driver.get(url);
 
     }
 
+    @Parameters({"origin", "destination", "period", "startDate", "endDate", "numberOfAdults"})
     @Test(description = "Fill in form on the empty Home Page")
-    public void fillInForm() {
-        WebElement origin = driver.findElement(By.name("origin"));
-        if (origin.getAttribute("value").equals("")) {
+    public void fillInForm(String origin, String destination, String period, String startDate, String endDate, int numberOfAdults) {
+        WebElement originField = driver.findElement(By.name("origin"));
+        if (originField.getAttribute("value").equals("")) {
             EmptyHomePage hp1 = new EmptyHomePage(driver);
-            hp1.chooseOrigin("Moscow")
-                    .chooseDestination("Tokyo")
-                    .chooseStartDate("October, 2018", "7")
-                    .chooseEndDate("20")
-                    .increaseNumberOfAdults(2)
+            hp1.chooseOrigin(origin)
+                    .chooseDestination(destination)
+                    .chooseStartDate(period, startDate)
+                    .chooseEndDate(endDate)
+                    .increaseNumberOfAdults(numberOfAdults)
                     .submitForm();
         } else {
             PrefilledHomePage hp2 = new PrefilledHomePage(driver);
-            hp2.chooseOrigin("Moscow")
-                    .chooseDestination("Tokyo")
-                    .chooseDates("October 2018", "7", "20")
-                    .increaseNumberOfAdults(2)
+            hp2.chooseOrigin(origin)
+                    .chooseDestination(destination)
+                    .chooseDates(period, startDate, endDate)
+                    .increaseNumberOfAdults(numberOfAdults)
                     .submitForm();
 
         }
 
     }
-
+    @Parameters({"searchPageUrl", "dollarSign", "sumPattern", "currencySymbolXpath", "sumXpath", "cheapestFlightXpath"})
     @Test(description = "Filter results", dependsOnMethods = "fillInForm")
-    public void filterResults() throws InterruptedException {
+    public void filterResults(String searchPageUrl, String dollarSign, String sumPattern, String currencySymbolXpath, String sumXpath, String cheapestFlightXpath) {
         FirstFlightSearchPage sp1 = new FirstFlightSearchPage(driver);
         SecondFligthtSearchPage sp2 = new SecondFligthtSearchPage(driver);
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }
-       // Thread.sleep(10000);
 
         new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[contains(@class, 'logo')]//a[@href='/']"))));
-        if (driver.getCurrentUrl().contains(SEARCHPAGEURL)) {
+        if (driver.getCurrentUrl().contains(searchPageUrl)) {
 
             sp1.chooseNonstopFlights()
                     .modifyDuration(4, 3)
                     .sortByCheapest();
-            System.out.println(sp1.getElementText(cheapestFlight));
-            Assert.assertTrue(sp1.getElementText(cheapestFlight).matches(sumPattern));
+            Assert.assertTrue(sp1.getElementText(cheapestFlightXpath).matches(sumPattern));
         } else {
             sp2.chooseNonStopFligths()
                     .modifyDuration(4, 3)
                     .closeFilters();
-            Assert.assertTrue(sp2.getElementText(currencySymbol).equals(DOLLARSIGN));
-            Assert.assertTrue(sp2.getElementText(sum).matches(sumPattern));
+            Assert.assertTrue(sp2.getElementText(currencySymbolXpath).equals(dollarSign));
+            Assert.assertTrue(sp2.getElementText(sumXpath).matches(sumPattern));
         }
+    }
+
+    @AfterClass(description = "Close browser")
+    public void tearDown() {
+        driver.quit();
     }
 
 
