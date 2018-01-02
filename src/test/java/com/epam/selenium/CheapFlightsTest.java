@@ -22,6 +22,12 @@ public class CheapFlightsTest {
 
     private WebDriver driver;
 
+    private By logoXpath = By.xpath("//div[contains(@class, 'logo')]//a[@href='/']");
+    private By originFieldName = By.name("origin");
+
+    private String originFieldAttribute = "value";
+    private String originFieldValue = "";
+
     @BeforeClass
     public void launchBrowser() {
         System.setProperty("webdriver.gecko.driver", "./src/main/resources/geckodriver");
@@ -37,12 +43,13 @@ public class CheapFlightsTest {
 
     }
 
-    @Parameters({"origin", "destination", "period", "startDate", "endDate", "numberOfAdults"})
+    @Parameters({"origin", "destination", "period",
+            "startDate", "endDate", "numberOfAdults"})
     @Test(description = "Fill in form on the empty Home Page")
     public void fillInForm(String origin, String destination, String period,
                            String startDate, String endDate, int numberOfAdults) {
-        WebElement originField = driver.findElement(By.name("origin"));
-        if (originField.getAttribute("value").equals("")) {
+        WebElement originField = driver.findElement(originFieldName);
+        if (originField.getAttribute(originFieldAttribute).equals(originFieldValue)) {
             EmptyHomePage hp1 = new EmptyHomePage(driver);
             hp1.chooseOrigin(origin)
                     .chooseDestination(destination)
@@ -57,12 +64,12 @@ public class CheapFlightsTest {
                     .chooseDates(period, startDate, endDate)
                     .increaseNumberOfAdults(numberOfAdults)
                     .submitForm();
-
         }
 
     }
 
-    @Parameters({"searchPageUrl", "dollarSign", "sumPattern", "currencySymbolXpath", "sumXpath", "cheapestFlightXpath", "sliderDivider", "sliderMultiplier"})
+    @Parameters({"searchPageUrl", "dollarSign", "sumPattern", "currencySymbolXpath",
+            "sumXpath", "cheapestFlightXpath", "sliderDivider", "sliderMultiplier"})
     @Test(description = "Filter results", dependsOnMethods = "fillInForm")
     public void filterResults(String searchPageUrl, String dollarSign, String sumPattern, String currencySymbolXpath,
                               String sumXpath, String cheapestFlightXpath, int sliderDivider, int sliderMultiplier) {
@@ -72,7 +79,8 @@ public class CheapFlightsTest {
             driver.switchTo().window(winHandle);
         }
 
-        new WebDriverWait(driver, 30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(@class, 'logo')]//a[@href='/']"))));
+        new WebDriverWait(driver, 30).until(ExpectedConditions.visibilityOf(driver.findElement(logoXpath)));
+
         if (driver.getCurrentUrl().contains(searchPageUrl)) {
             sp1.chooseNonstopFlights()
                     .modifyDuration(sliderDivider, sliderMultiplier)
