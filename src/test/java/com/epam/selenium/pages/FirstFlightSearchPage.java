@@ -4,6 +4,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.logging.Level;
+
 public class FirstFlightSearchPage extends Page {
 
     public FirstFlightSearchPage(WebDriver driver) {
@@ -40,15 +42,13 @@ public class FirstFlightSearchPage extends Page {
         try {
             waitForVisibilityFluently(twoStops, 100, 5);
         } catch (org.openqa.selenium.TimeoutException e) {
-            System.out.println("Driver was not able to find the specfied element after timeout. Please, refer to the message for more info. " + e.getMessage());
-            waitForVisibilityFluently(twoStops, 100, 5);
+            logger.log(Level.SEVERE, "Driver was unable to locate the element during the specified amount of time", e);
         } catch (org.openqa.selenium.NoSuchElementException e) {
-            System.out.println("Driver was not able to find the element by the specified locator. Please, refer to the message for more info. " + e.getMessage());
+            logger.log(Level.SEVERE, "Driver was not able to find the element by the specified locator." + e);
         } finally {
-
+            waitForVisibilityFluently(twoStops, 100, 5);
             oneStop.click();
             waitForJSandJQueryToLoad();
-            //new WebDriverWait(driver,10).until(ExpectedConditions.attributeToBe(load, "class", "resultsListCover tl"));
             twoStops.click();
             waitForJSandJQueryToLoad();
 
@@ -84,7 +84,7 @@ public class FirstFlightSearchPage extends Page {
         return this;
     }
 
-    public String getElementText(String cssSelector) {
-        return driver.findElement(By.xpath(cssSelector)).getText();
+    public String getElementText(String xpath) {
+        return driver.findElement(By.xpath(xpath)).getText();
     }
 }

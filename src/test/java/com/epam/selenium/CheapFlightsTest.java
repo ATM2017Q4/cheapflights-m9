@@ -26,7 +26,7 @@ public class CheapFlightsTest {
     public void launchBrowser() {
         System.setProperty("webdriver.gecko.driver", "./src/main/resources/geckodriver");
         driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         driver.manage().window().maximize();
     }
 
@@ -69,7 +69,7 @@ public class CheapFlightsTest {
             driver.switchTo().window(winHandle);
         }
 
-        new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[contains(@class, 'logo')]//a[@href='/']"))));
+        new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(@class, 'logo')]//a[@href='/']"))));
         if (driver.getCurrentUrl().contains(searchPageUrl)) {
 
             sp1.chooseNonstopFlights()

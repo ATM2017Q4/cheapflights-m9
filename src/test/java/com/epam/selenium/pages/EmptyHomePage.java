@@ -65,7 +65,7 @@ public class EmptyHomePage extends Page {
 
     public EmptyHomePage chooseStartDate(String period, String startDate) {
         departureField.click();
-        while (!(monthName.getText().toUpperCase().equalsIgnoreCase(period))) {
+        while (!(monthName.getText().contains(period.toUpperCase()))) {
             nextButton.click();
 
         }

@@ -14,12 +14,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 
-public class Page extends BasePage{
+public class Page extends BasePage {
 
     protected WebDriver driver;
-
+    protected Logger logger = Logger.getLogger(this.getClass().getName());
 
 
     public Page(WebDriver driver) {
@@ -50,18 +51,7 @@ public class Page extends BasePage{
     }
 
     public void waitForAttributeToBe(By by, String attribute, String value, int timeout) {
-        new WebDriverWait(driver,timeout).until(ExpectedConditions.attributeToBe(by, attribute, value));
-    }
-
-    public boolean isDisplayed(List<WebElement> element) {
-        boolean result;
-        try {
-            result = (element.size() > 0 && element.get(0).isDisplayed());
-
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            result = false;
-        }
-        return result;
+        new WebDriverWait(driver, timeout).until(ExpectedConditions.attributeToBe(by, attribute, value));
     }
 
 
@@ -83,6 +73,21 @@ public class Page extends BasePage{
             }
         };
         return wait.until(jQueryLoad) && wait.until(jsLoad);
+    }
+
+    public boolean isDisplayed(List<WebElement> element) {
+        boolean result;
+        try {
+            result = (element.size() > 0 && element.get(0).isDisplayed());
+
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            result = false;
+        }
+        return result;
+    }
+
+    public String getElementText(String xpath) {
+        return driver.findElement(By.xpath(xpath)).getText();
     }
 
 

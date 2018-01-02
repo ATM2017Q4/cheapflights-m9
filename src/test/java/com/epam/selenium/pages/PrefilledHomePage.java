@@ -88,7 +88,7 @@ public class PrefilledHomePage extends Page {
         waitForVisibilityFluently(datePicker, 10, 1);
         //final WebElement OCTOBER = driver.findElement(By.xpath("//div[contains(text(), '" + period + "')]"));
         By xpath = By.xpath("//div[contains(text(), '" + period + "')]");
-        while (!(monthName.getText().equals(period))) {
+        while (!(monthName.getText().contains(period))) {
             nextButton.click();
             if (isDisplayed(driver.findElements(xpath))) {
                 break;
