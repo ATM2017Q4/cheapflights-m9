@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.TYPE})
 
 public @interface LocateBy {
-    Attributes attributes();
+    Attributes attribute();
 
     String value();
 

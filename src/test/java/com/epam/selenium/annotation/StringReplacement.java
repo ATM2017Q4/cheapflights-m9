@@ -4,7 +4,7 @@ public class StringReplacement {
     private StringReplacement() {
     }
 
-    public static String replaceWithValues(final String target, final String replaceToken, final String... values) {
-        return String.format(target.replace("%", "%%").replace(replaceToken, "%s"), (Object[]) values);
+    public static String replaceWithValues(final String replacedToken, final String replacementToken, final String... values) {
+        return String.format(replacedToken.replace("%", "%%").replace(replacementToken, "%s"), (Object[]) values);
     }
 }

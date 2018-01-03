@@ -58,11 +58,14 @@ public class PrefilledHomePage extends Page {
     @FindBy(xpath = "(//div[contains(@id, 'adults')]//button[@title=\"Increment\"])[2]")
     private WebElement adultsPlus;
 
-    @LocateBy(attributes = XPATH,  value = "(//div[@class='weeks'])[3]//div[contains(text(), '?')]")
+    @LocateBy(attribute = XPATH,  value = "(//div[@class='weeks'])[3]//div[contains(text(), '?')]")
     private Element finishDate;
 
-    @LocateBy(attributes = XPATH, value = "//div[contains(text(), '?')]")
+    @LocateBy(attribute = XPATH, value = "//div[contains(text(), '?')]")
     private Element october;
+
+//    @LocateBy(attribute = XPATH, value = "//div[contains(text(), '?')]"))
+//    private Element
 
     private By dates = By.xpath("(//div[@class='weeks'])[3]//div[@class='day']");
 
@@ -88,9 +91,10 @@ public class PrefilledHomePage extends Page {
         waitForVisibilityFluently(datePicker, 10, 1);
         //final WebElement OCTOBER = driver.findElement(By.xpath("//div[contains(text(), '" + period + "')]"));
         By xpath = By.xpath("//div[contains(text(), '" + period + "')]");
+
         while (!(monthName.getText().contains(period))) {
             nextButton.click();
-            if (isDisplayed(driver.findElements(xpath))) {
+            if (isDisplayed(findElements(updateElement(october, period)))) {
                 break;
             }
         }

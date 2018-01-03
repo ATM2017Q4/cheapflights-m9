@@ -2,32 +2,35 @@ package com.epam.selenium.annotation;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.pagefactory.ElementLocator;
 
 import java.util.List;
 
 import static com.epam.selenium.annotation.StringReplacement.replaceWithValues;
 
-public class Element extends By{
+public class Element implements ElementLocator{
     private By locator;
-    private Attributes elementSearchCriteria;
+    private Attributes elementAttribute;
     private String elementValue;
+    private WebDriver driver;
 
-    private static final String REPLACE_TOKEN = "?";
+    private static final String TOKENTOREPLACE = "?";
 
-    public Element(final Attributes elementSearchCriteria, final String elementValue) {
+    public Element(final Attributes elementAttribute, final String elementValue) {
 
-        if (!elementValue.contains(REPLACE_TOKEN)) {
-            initElement(elementSearchCriteria, elementValue);
+        if (!elementValue.contains(TOKENTOREPLACE)) {
+            assignValues(elementAttribute, elementValue);
         }
 
-        this.elementSearchCriteria = elementSearchCriteria;
+        this.elementAttribute = elementAttribute;
         this.elementValue = elementValue;
     }
 
-    public final void initElement(final Attributes elementSearchCriteria, final String elementValue) {
+    public final void assignValues(final Attributes elementAttribute, final String elementValue) {
 
-        switch (elementSearchCriteria) {
+        switch (elementAttribute) {
             case ID:
                 locator = By.id(elementValue);
                 break;
@@ -56,7 +59,7 @@ public class Element extends By{
     }
 
     public Element updateElement(final String... values) {
-        initElement(elementSearchCriteria, replaceWithValues(elementValue, REPLACE_TOKEN, values));
+        assignValues(elementAttribute, replaceWithValues(elementValue, TOKENTOREPLACE, values));
         return this;
     }
 
@@ -64,8 +67,27 @@ public class Element extends By{
         return locator;
     }
 
-    @Override
-    public List<WebElement> findElements(final SearchContext searchContext) {
+
+    public Element updateElement(final Element element, final String... values) {
+        return element.updateElement(values);
+    }
+
+    public WebElement findElement(final Element element) {
+        return driver.findElement(element.getLocator());
+    }
+
+    public List<WebElement> findElements(final Element element) {
+        return driver.findElements(element.getLocator());
+    }
+    public void click(final Element element) {
+        findElement(element).click();
+}
+
+    public WebElement findElement() {
+        return null;
+    }
+
+    public List<WebElement> findElements() {
         return null;
     }
 }
