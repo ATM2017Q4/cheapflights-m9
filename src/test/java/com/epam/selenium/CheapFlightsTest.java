@@ -5,9 +5,13 @@ import com.epam.selenium.pages.FirstFlightSearchPage;
 import com.epam.selenium.pages.PrefilledHomePage;
 import com.epam.selenium.pages.SecondFligthtSearchPage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -16,6 +20,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class CheapFlightsTest {
@@ -27,13 +33,25 @@ public class CheapFlightsTest {
 
     private String originFieldAttribute = "value";
     private String originFieldValue = "";
+    private String node1Url = "http://localhost:5567/wd/hub/";
+    private String node2Url = "http://10.6.183.105:5568/wd/hub/";
 
     @BeforeClass
     public void launchBrowser() {
         System.setProperty("webdriver.gecko.driver", "./src/main/resources/geckodriver");
-        driver = new FirefoxDriver();
+//        driver = new FirefoxDriver();
+        FirefoxOptions options = new FirefoxOptions();
+        options.getPlatform();
+        options.getBrowserName();
+        try {
+            //driver = new RemoteWebDriver(new URL(node1Url), options);
+            driver = new RemoteWebDriver(new URL(node2Url), options);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         driver.manage().window().maximize();
+
     }
 
     @Parameters({"url"})

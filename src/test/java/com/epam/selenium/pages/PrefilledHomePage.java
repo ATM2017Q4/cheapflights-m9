@@ -1,7 +1,5 @@
 package com.epam.selenium.pages;
 
-import com.epam.selenium.annotation.Element;
-import com.epam.selenium.annotation.LocateBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +9,6 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-import static com.epam.selenium.annotation.Attributes.XPATH;
 
 public class PrefilledHomePage extends Page {
 
@@ -58,14 +55,6 @@ public class PrefilledHomePage extends Page {
     @FindBy(xpath = "(//div[contains(@id, 'adults')]//button[@title=\"Increment\"])[2]")
     private WebElement adultsPlus;
 
-    @LocateBy(attribute = XPATH,  value = "(//div[@class='weeks'])[3]//div[contains(text(), '?')]")
-    private Element finishDate;
-
-    @LocateBy(attribute = XPATH, value = "//div[contains(text(), '?')]")
-    private Element october;
-
-//    @LocateBy(attribute = XPATH, value = "//div[contains(text(), '?')]"))
-//    private Element
 
     private By dates = By.xpath("(//div[@class='weeks'])[3]//div[@class='day']");
 
@@ -90,11 +79,11 @@ public class PrefilledHomePage extends Page {
         departureDateField.click();
         waitForVisibilityFluently(datePicker, 10, 1);
         //final WebElement OCTOBER = driver.findElement(By.xpath("//div[contains(text(), '" + period + "')]"));
-        By xpath = By.xpath("//div[contains(text(), '" + period + "')]");
+        By october = By.xpath("//div[contains(text(), '" + period + "')]");
 
         while (!(monthName.getText().contains(period))) {
             nextButton.click();
-            if (isDisplayed(findElements(updateElement(october, period)))) {
+            if (isDisplayed(driver.findElements(october))) {
                 break;
             }
         }
@@ -104,11 +93,10 @@ public class PrefilledHomePage extends Page {
             if (day.getText().equals(startDate)) {
                 Actions chooser = new Actions(driver);
                 chooser.click(day)
-                        .click(returnDateField)
-                        //.click(driver.findElement(By.xpath("(//div[@class='weeks'])[3]//div[contains(text(), '" + endDate + "')]")))
-
+                        .sendKeys(Keys.TAB)
+                        .click(driver.findElement(By.xpath("(//div[@class='weeks'])[3]//div[contains(text(), '" + endDate + "')]")))
                         .build().perform();
-                click(updateElement(finishDate, endDate));
+
                 break;
             }
         }
