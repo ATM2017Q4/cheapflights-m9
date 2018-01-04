@@ -1,16 +1,14 @@
-package com.epam.selenium;
+package com.epam.selenium.pages.tests;
 
-import com.epam.selenium.pages.EmptyHomePage;
-import com.epam.selenium.pages.FirstFlightSearchPage;
-import com.epam.selenium.pages.PrefilledHomePage;
-import com.epam.selenium.pages.SecondFligthtSearchPage;
+import com.epam.selenium.pages.desktop.EmptyHomePage;
+import com.epam.selenium.pages.desktop.FirstFlightSearchPage;
+import com.epam.selenium.pages.desktop.PrefilledHomePage;
+import com.epam.selenium.pages.desktop.SecondFligthtSearchPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -33,22 +31,11 @@ public class CheapFlightsTest {
 
     private String originFieldAttribute = "value";
     private String originFieldValue = "";
-    private String node1Url = "http://localhost:5567/wd/hub/";
-    private String node2Url = "http://10.6.183.105:5568/wd/hub/";
 
     @BeforeClass
     public void launchBrowser() {
         System.setProperty("webdriver.gecko.driver", "./src/main/resources/geckodriver");
-//        driver = new FirefoxDriver();
-        FirefoxOptions options = new FirefoxOptions();
-        options.getPlatform();
-        options.getBrowserName();
-        try {
-            //driver = new RemoteWebDriver(new URL(node1Url), options);
-            driver = new RemoteWebDriver(new URL(node2Url), options);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         driver.manage().window().maximize();
 
@@ -63,7 +50,7 @@ public class CheapFlightsTest {
 
     @Parameters({"origin", "destination", "period",
             "startDate", "endDate", "numberOfAdults"})
-    @Test(description = "Fill in form on the empty Home Page")
+    @Test(description = "Fill in form on the empty Home AbstractPage")
     public void fillInForm(String origin, String destination, String period,
                            String startDate, String endDate, int numberOfAdults) {
         WebElement originField = driver.findElement(originFieldName);

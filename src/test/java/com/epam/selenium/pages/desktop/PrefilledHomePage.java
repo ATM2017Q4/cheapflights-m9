@@ -1,5 +1,6 @@
-package com.epam.selenium.pages;
+package com.epam.selenium.pages.desktop;
 
+import com.epam.selenium.pages.abstractpages.AbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +11,7 @@ import org.openqa.selenium.support.FindBy;
 import java.util.List;
 
 
-public class PrefilledHomePage extends Page {
+public class PrefilledHomePage extends AbstractPage {
 
     public PrefilledHomePage(WebDriver driver) {
         super(driver);
@@ -30,9 +31,6 @@ public class PrefilledHomePage extends Page {
 
     @FindBy(xpath = "//div[@aria-label='Departure date input']")
     private WebElement departureDateField;
-
-    @FindBy(xpath = "//div[@aria-label='Return date input']")
-    private WebElement returnDateField;
 
     @FindBy(xpath = "//div[@class='contentContainer']")
     private WebElement datePicker;
@@ -54,7 +52,6 @@ public class PrefilledHomePage extends Page {
 
     @FindBy(xpath = "(//div[contains(@id, 'adults')]//button[@title=\"Increment\"])[2]")
     private WebElement adultsPlus;
-
 
     private By dates = By.xpath("(//div[@class='weeks'])[3]//div[@class='day']");
 
@@ -78,7 +75,6 @@ public class PrefilledHomePage extends Page {
     public PrefilledHomePage chooseDates(String period, String startDate, String endDate) {
         departureDateField.click();
         waitForVisibilityFluently(datePicker, 10, 1);
-        //final WebElement OCTOBER = driver.findElement(By.xpath("//div[contains(text(), '" + period + "')]"));
         By october = By.xpath("//div[contains(text(), '" + period + "')]");
 
         while (!(monthName.getText().contains(period))) {
@@ -87,14 +83,14 @@ public class PrefilledHomePage extends Page {
                 break;
             }
         }
-
+        By endDateLocator = By.xpath("(//div[@class='weeks'])[3]//div[contains(text(), '" + endDate + "')]");
         List<WebElement> duration = driver.findElements(dates);
         for (WebElement day : duration) {
             if (day.getText().equals(startDate)) {
                 Actions chooser = new Actions(driver);
                 chooser.click(day)
                         .sendKeys(Keys.TAB)
-                        .click(driver.findElement(By.xpath("(//div[@class='weeks'])[3]//div[contains(text(), '" + endDate + "')]")))
+                        .click(driver.findElement(endDateLocator))
                         .build().perform();
 
                 break;

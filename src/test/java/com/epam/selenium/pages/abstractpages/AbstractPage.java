@@ -1,4 +1,4 @@
-package com.epam.selenium.pages;
+package com.epam.selenium.pages.abstractpages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -16,13 +16,13 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 
-public abstract class Page {
+public abstract class AbstractPage {
 
     protected WebDriver driver;
     protected Logger logger = Logger.getLogger(this.getClass().getName());
 
 
-    public Page(WebDriver driver) {
+    public AbstractPage(WebDriver driver) {
 
         this.driver = driver;
         PageFactory.initElements(this.driver, this);

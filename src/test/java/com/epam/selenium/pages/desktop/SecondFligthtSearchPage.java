@@ -1,5 +1,6 @@
-package com.epam.selenium.pages;
+package com.epam.selenium.pages.desktop;
 
+import com.epam.selenium.pages.abstractpages.AbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +10,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.logging.Level;
 
-public class SecondFligthtSearchPage extends Page {
+public class SecondFligthtSearchPage extends AbstractPage {
     public SecondFligthtSearchPage(WebDriver driver){
         super(driver);
     }

@@ -1,12 +1,13 @@
-package com.epam.selenium.pages;
+package com.epam.selenium.pages.desktop;
 
+import com.epam.selenium.pages.abstractpages.AbstractPage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.logging.Level;
 
-public class FirstFlightSearchPage extends Page {
+public class FirstFlightSearchPage extends AbstractPage {
 
     public FirstFlightSearchPage(WebDriver driver) {
         super(driver);

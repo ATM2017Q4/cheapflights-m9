@@ -1,5 +1,6 @@
-package com.epam.selenium.pages;
+package com.epam.selenium.pages.desktop;
 
+import com.epam.selenium.pages.abstractpages.AbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -7,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import java.util.List;
 
-public class EmptyHomePage extends Page {
+public class EmptyHomePage extends AbstractPage {
 
     public EmptyHomePage(WebDriver driver) {
         super(driver);
