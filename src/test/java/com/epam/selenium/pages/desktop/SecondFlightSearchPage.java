@@ -10,8 +10,8 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.logging.Level;
 
-public class SecondFligthtSearchPage extends AbstractPage {
-    public SecondFligthtSearchPage(WebDriver driver){
+public class SecondFlightSearchPage extends AbstractPage {
+    public SecondFlightSearchPage(WebDriver driver){
         super(driver);
     }
 
@@ -42,7 +42,7 @@ public class SecondFligthtSearchPage extends AbstractPage {
     @FindBy(id = "update-indicator")
     private WebElement updateIndicator;
 
-    public SecondFligthtSearchPage chooseNonStopFligths(){
+    public SecondFlightSearchPage chooseNonStopFlights(){
         try {
             waitForVisibilityFluently(cheapestFlight, 300, 10);
         }catch(org.openqa.selenium.NoSuchElementException e){
@@ -58,7 +58,7 @@ public class SecondFligthtSearchPage extends AbstractPage {
         return this;
     }
 
-    public SecondFligthtSearchPage modifyDuration(int divider, int multiplier){
+    public SecondFlightSearchPage modifyDuration(int divider, int multiplier){
         durationFilter.click();
         Dimension size = progress.getSize();
         int sliderWidth = size.getWidth();
@@ -72,7 +72,7 @@ public class SecondFligthtSearchPage extends AbstractPage {
 
     }
 
-    public SecondFligthtSearchPage closeFilters(){
+    public SecondFlightSearchPage closeFilters(){
         closeButton.click();
         waitForInvisibilityExplicitly(updateIndicator, 10);
         return this;

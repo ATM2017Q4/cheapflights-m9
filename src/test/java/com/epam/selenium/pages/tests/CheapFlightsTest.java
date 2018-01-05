@@ -3,14 +3,11 @@ package com.epam.selenium.pages.tests;
 import com.epam.selenium.pages.desktop.EmptyHomePage;
 import com.epam.selenium.pages.desktop.FirstFlightSearchPage;
 import com.epam.selenium.pages.desktop.PrefilledHomePage;
-import com.epam.selenium.pages.desktop.SecondFligthtSearchPage;
+import com.epam.selenium.pages.desktop.SecondFlightSearchPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -19,8 +16,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class CheapFlightsTest {
@@ -81,7 +76,7 @@ public class CheapFlightsTest {
     public void filterResults(String searchPageUrl, String dollarSign, String sumPattern, String currencySymbolXpath,
                               String sumXpath, String cheapestFlightXpath, int sliderDivider, int sliderMultiplier) {
         FirstFlightSearchPage sp1 = new FirstFlightSearchPage(driver);
-        SecondFligthtSearchPage sp2 = new SecondFligthtSearchPage(driver);
+        SecondFlightSearchPage sp2 = new SecondFlightSearchPage(driver);
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }
@@ -95,7 +90,7 @@ public class CheapFlightsTest {
                     .highlightElement(cheapestFlightXpath);
             Assert.assertTrue(sp1.getElementText(cheapestFlightXpath).matches(sumPattern));
         } else {
-            sp2.chooseNonStopFligths()
+            sp2.chooseNonStopFlights()
                     .modifyDuration(sliderDivider, sliderMultiplier)
                     .closeFilters()
                     .highlightElement(sumXpath);
