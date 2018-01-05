@@ -63,7 +63,7 @@ public class FirstFlightSearchPage extends AbstractPage {
     public FirstFlightSearchPage modifyDuration(int divider, int multiplier) {
         //Here Javascript is used as a workaround as moveToElement doesn't scroll the element into view in ForeFox and MoveTargetOutOfBoundsException is thrown
         //https://github.com/mozilla/geckodriver/issues/776
-       ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", slider);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", slider);
         Dimension size = progress.getSize();
         int sliderWidth = size.getWidth();
 

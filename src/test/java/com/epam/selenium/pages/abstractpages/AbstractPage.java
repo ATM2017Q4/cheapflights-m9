@@ -22,7 +22,6 @@ public abstract class AbstractPage {
     protected Logger logger = Logger.getLogger(this.getClass().getName());
 
 
-
     public AbstractPage(WebDriver driver) {
 
         this.driver = driver;
@@ -38,12 +37,6 @@ public abstract class AbstractPage {
         new FluentWait(driver).withTimeout(timeout, TimeUnit.SECONDS).pollingEvery(poll, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class)
                 .until(ExpectedConditions.visibilityOf(element));
-    }
-
-    public void waitForClickabilityFluently(WebElement element, int timeout, int poll) {
-        new FluentWait(driver).withTimeout(timeout, TimeUnit.SECONDS).pollingEvery(poll, TimeUnit.SECONDS)
-                .ignoring(NoSuchElementException.class)
-                .until(ExpectedConditions.elementToBeClickable(element));
     }
 
     public void waitForInvisibilityExplicitly(WebElement element, int timeout) {
@@ -91,7 +84,7 @@ public abstract class AbstractPage {
     }
 
     public void highlightElement(String xpath) {
-        JavascriptExecutor jsExecutor = (JavascriptExecutor)driver;
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
         jsExecutor.executeScript("arguments[0].setAttribute('style','border: solid 2px red')", this.getDriver().findElement(By.xpath(xpath)));
     }
 
