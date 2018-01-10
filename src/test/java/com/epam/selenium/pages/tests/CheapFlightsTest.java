@@ -32,7 +32,8 @@ public class CheapFlightsTest {
     private String originFieldAttribute = "value";
     private String originFieldValue = "";
     private AbstractHomePage homePage;
-    private HomePageFactory pageFactory;
+    private AbstractSearchPage searchPage;
+    
     @BeforeClass
     public void launchBrowser() {
         System.setProperty("webdriver.gecko.driver", "./src/main/resources/geckodriver");
@@ -51,13 +52,13 @@ public class CheapFlightsTest {
     }
 
     @Parameters({"origin", "destination", "period",
-            "startDate", "endDate", "numberOfAdults", "sliderDivider", "sliderMultiplier", "dollarSign", "sumPattern", "currencySymbolXpath",
-            "sumXpath"})
+            "startDate", "endDate", "numberOfAdults", "sliderDivider", "sliderMultiplier", "dollarSign",  "currencySymbolXpath",
+            "sumXpath", "cheapestFlightXpath", "sumPattern"})
     @Test(description = "Fill in form on the empty Home AbstractPage")
     public void fillInForm(String origin, String destination, String period,
                            String startDate, String endDate, int numberOfAdults,
                            int sliderDivider, int sliderMultiplier, String currencySymbolXpath,
-                           String dollarSign, String sumXpath, String sumPattern) {
+                           String dollarSign, String sumXpath,  String cheapestFlightXpath, String sumPattern) {
         HomePageFactory pageFactory = new HomePageFactory(driver);
         new SearchPageFactory();
         homePage = pageFactory.getCorrectPage(driver);
@@ -70,8 +71,11 @@ public class CheapFlightsTest {
                 .modifyDuration(sliderDivider, sliderMultiplier)
                 .sortByCheapest()
                 .closeFilters();
-        //Assert.assertTrue(AbstractSearchPage.getElementText(currencySymbolXpath).equals(dollarSign));
-        Assert.assertTrue(driver.findElement(By.xpath(sumXpath)).getText().matches(sumPattern));
+
+
+        //System.out.println(SearchPageFactory.getCorrectPage(driver).getCheapestFlight());
+        Assert.assertTrue(SearchPageFactory.getCorrectPage(driver).getCheapestFlight().matches(sumPattern));
+
 
     }
 

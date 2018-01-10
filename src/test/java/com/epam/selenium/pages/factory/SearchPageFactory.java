@@ -14,7 +14,6 @@ public class SearchPageFactory {
     public static AbstractSearchPage getCorrectPage(WebDriver driver){
 
         AbstractSearchPage page;
-        System.out.println(driver.getCurrentUrl());
         if (driver.getCurrentUrl().contains(searchPageUrl))  {
             page = new FirstFlightSearchPage(driver);
         }else {

@@ -2,6 +2,7 @@ package com.epam.selenium.pages.desktop;
 
 import com.epam.selenium.pages.abstractpages.AbstractPage;
 import com.epam.selenium.pages.abstractpages.AbstractSearchPage;
+import com.epam.selenium.pages.factory.SearchPageFactory;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -42,6 +43,8 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
     private WebElement progressBar;
 
     private By loadComplete = By.xpath("//div[@class='resultsContainer']/div[contains(@id, 'cover')]");
+
+    private static String cheapestFlightXpath = "(//div[@class='above-button']//a[@class='booking-link']/span[@class='price option-text'])[1]";
 
     public FirstFlightSearchPage chooseNonStopFlights() {
         try {
@@ -88,6 +91,11 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
 
         }
         return this;
+    }
+
+    public String getCheapestFlight() {
+        setCheapestFlight(cheapestFlightXpath);
+        return getDriver().findElement(By.xpath(cheapestFlightXpath)).getText();
     }
 
 }

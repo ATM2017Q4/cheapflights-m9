@@ -1,6 +1,7 @@
 package com.epam.selenium.pages.desktop;
 
 import com.epam.selenium.pages.abstractpages.AbstractSearchPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -41,6 +42,8 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
     @FindBy(id = "update-indicator")
     private WebElement updateIndicator;
 
+    private String cheapestFlightXpath = "//div[@class='quicklink cheapest clearfix selected-filter']//span[@class='value']";
+
     public SecondFlightSearchPage chooseNonStopFlights() {
         try {
             waitForVisibilityFluently(cheapestFlight, 300, 10);
@@ -71,10 +74,21 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
 
     }
 
-    public SecondFlightSearchPage closeFilters() {
+    public void closeFilters() {
         closeButton.click();
         waitForInvisibilityExplicitly(updateIndicator, 10);
-        return this;
+
+    }
+
+    public String getCheapestFlightXpath(){
+        return cheapestFlightXpath;
+    }
+
+
+
+    public String getCheapestFlight() {
+        setCheapestFlight(cheapestFlightXpath);
+        return getDriver().findElement(By.xpath(getCheapestFlightXpath())).getText();
     }
 
 }

@@ -2,10 +2,12 @@ package com.epam.selenium.pages.abstractpages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class AbstractSearchPage extends AbstractPage{
+public abstract class AbstractSearchPage extends AbstractPage{
     public AbstractSearchPage(WebDriver driver) {
         super(driver);
     }
+
+    private static String cheapestFlightXpath;
 
     public AbstractSearchPage chooseNonStopFlights() {return this;}
 
@@ -13,12 +15,21 @@ public class AbstractSearchPage extends AbstractPage{
 
     public AbstractSearchPage sortByCheapest() { return this;}
 
-    public String getElementText(String xpath) {
-        return driver.findElement(By.xpath(xpath)).getText();
+    public String getCheapestFlight() {
+        return getDriver().findElement(By.xpath(cheapestFlightXpath)).getText();
     }
 
-    public AbstractSearchPage closeFilters(){
-        return this;
+    public void setCheapestFlight(String cheapestFlightXpath){
+        this.cheapestFlightXpath = cheapestFlightXpath;
     }
+    public String getCheapestFlightXpath(){
+        return cheapestFlightXpath;
+    }
+
+    public void closeFilters(){
+
+    }
+
+
 
 }

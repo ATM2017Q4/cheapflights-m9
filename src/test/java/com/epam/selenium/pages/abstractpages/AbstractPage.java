@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 public abstract class AbstractPage {
 
-    protected WebDriver driver;
+    protected static WebDriver driver;
     protected Logger logger = Logger.getLogger(this.getClass().getName());
 
 
