@@ -1,7 +1,6 @@
 package com.epam.selenium.pages.desktop;
 
-import com.epam.selenium.pages.abstractpages.AbstractPage;
-import org.openqa.selenium.By;
+import com.epam.selenium.pages.abstractpages.AbstractSearchPage;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.logging.Level;
 
-public class SecondFlightSearchPage extends AbstractPage {
+public class SecondFlightSearchPage extends AbstractSearchPage {
     public SecondFlightSearchPage(WebDriver driver) {
         super(driver);
     }
@@ -78,7 +77,4 @@ public class SecondFlightSearchPage extends AbstractPage {
         return this;
     }
 
-    public String getElementText(String xpath) {
-        return driver.findElement(By.xpath(xpath)).getText();
-    }
 }

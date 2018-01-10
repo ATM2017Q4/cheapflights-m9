@@ -1,6 +1,6 @@
 package com.epam.selenium.pages.desktop;
 
-import com.epam.selenium.pages.abstractpages.AbstractPage;
+import com.epam.selenium.pages.abstractpages.AbstractHomePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -9,17 +9,11 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class EmptyHomePage extends AbstractPage {
+public class EmptyHomePage extends AbstractHomePage {
 
     public EmptyHomePage(WebDriver driver) {
         super(driver);
     }
-
-    @FindBy(name = "origin")
-    private WebElement origin;
-
-    @FindBy(name = "destination")
-    private WebElement destination;
 
     @FindBy(xpath = "//a[@class='next-month']")
     private WebElement nextButton;
@@ -53,6 +47,8 @@ public class EmptyHomePage extends AbstractPage {
         origin.sendKeys(Keys.ARROW_DOWN);
         origin.sendKeys(Keys.ENTER);
         return this;
+
+
     }
 
     public EmptyHomePage chooseDestination(String to) {
@@ -65,13 +61,13 @@ public class EmptyHomePage extends AbstractPage {
         return this;
     }
 
-    public EmptyHomePage chooseStartDate(String period, String startDate) {
+    public EmptyHomePage chooseDates(String period, String startDate, String endDate) {
         departureField.click();
         while (!(monthName.getText().contains(period.toUpperCase()))) {
             nextButton.click();
 
         }
-        List<WebElement> departure = driver.findElements(departureDates);
+        List<WebElement> departure = getDriver().findElements(departureDates);
 
         for (WebElement cell : departure) {
             if (cell.getText().equals(startDate)) {
@@ -80,13 +76,9 @@ public class EmptyHomePage extends AbstractPage {
             }
         }
 
-        return this;
-    }
-
-    public EmptyHomePage chooseEndDate(String endDate) {
         arrivalField.click();
 
-        List<WebElement> arrival = driver.findElements(returnDates);
+        List<WebElement> arrival = getDriver().findElements(returnDates);
         for (WebElement cell : arrival) {
             if (cell.getText().equals(endDate)) {
                 cell.click();
@@ -103,10 +95,5 @@ public class EmptyHomePage extends AbstractPage {
         }
         return this;
     }
-
-    public void submitForm() {
-        submitButton.click();
-    }
-
 
 }

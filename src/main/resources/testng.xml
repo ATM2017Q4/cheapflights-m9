@@ -15,8 +15,7 @@
                         <parameter name="startDate" value="7"/>
                         <parameter name="endDate" value="20"/>
                         <parameter name="numberOfAdults" value="2"/>
-                    </include>
-                    <include name="filterResults">
+
                         <parameter name="searchPageUrl" value="https://global.cheapflights.com/flight-search/MOW-TYO"/>
                         <parameter name="dollarSign" value="$"/>
                         <parameter name="sumPattern" value="[\$\r\n]*(([0-5][0-4][0-9])|([0-4][0-9][0-9]))[.\r\n]*"/>

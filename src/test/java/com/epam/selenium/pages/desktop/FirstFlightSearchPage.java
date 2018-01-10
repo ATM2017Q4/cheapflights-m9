@@ -1,13 +1,14 @@
 package com.epam.selenium.pages.desktop;
 
 import com.epam.selenium.pages.abstractpages.AbstractPage;
+import com.epam.selenium.pages.abstractpages.AbstractSearchPage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.logging.Level;
 
-public class FirstFlightSearchPage extends AbstractPage {
+public class FirstFlightSearchPage extends AbstractSearchPage {
 
     public FirstFlightSearchPage(WebDriver driver) {
         super(driver);
@@ -42,7 +43,7 @@ public class FirstFlightSearchPage extends AbstractPage {
 
     private By loadComplete = By.xpath("//div[@class='resultsContainer']/div[contains(@id, 'cover')]");
 
-    public FirstFlightSearchPage chooseNonstopFlights() {
+    public FirstFlightSearchPage chooseNonStopFlights() {
         try {
             waitForInvisibilityExplicitly(progressBar, 100);
         } catch (org.openqa.selenium.TimeoutException e) {
@@ -89,7 +90,4 @@ public class FirstFlightSearchPage extends AbstractPage {
         return this;
     }
 
-    public String getElementText(String xpath) {
-        return driver.findElement(By.xpath(xpath)).getText();
-    }
 }

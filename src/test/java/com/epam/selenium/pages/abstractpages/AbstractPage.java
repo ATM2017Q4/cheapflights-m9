@@ -35,8 +35,9 @@ public abstract class AbstractPage {
 
     public void waitForVisibilityFluently(WebElement element, int timeout, int poll) {
         new FluentWait(driver).withTimeout(timeout, TimeUnit.SECONDS).pollingEvery(poll, TimeUnit.SECONDS)
-                .ignoring(NoSuchElementException.class)
+                .ignoring(org.openqa.selenium.NoSuchElementException.class)
                 .until(ExpectedConditions.visibilityOf(element));
+
     }
 
     public void waitForInvisibilityExplicitly(WebElement element, int timeout) {
@@ -77,10 +78,6 @@ public abstract class AbstractPage {
             result = false;
         }
         return result;
-    }
-
-    public String getElementText(String xpath) {
-        return driver.findElement(By.xpath(xpath)).getText();
     }
 
     public void highlightElement(String xpath) {
