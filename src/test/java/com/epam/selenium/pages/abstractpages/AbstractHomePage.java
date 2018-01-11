@@ -41,8 +41,11 @@ public abstract class AbstractHomePage extends AbstractPage{
 
     public AbstractSearchPage submitForm(){
         submitButton.click();
-        for (String winHandle : getDriver().getWindowHandles()) {
-            getDriver().switchTo().window(winHandle);
+        String parentWindow = getDriver().getWindowHandle();
+        for (String childWindow : getDriver().getWindowHandles()) {
+            if (childWindow != parentWindow) {
+                getDriver().switchTo().window(childWindow);
+            }
         }
         waitForVisibilityFluently(getDriver().findElement(logoXpath), 40, 5);
         return SearchPageFactory.getCorrectPage(getDriver());
