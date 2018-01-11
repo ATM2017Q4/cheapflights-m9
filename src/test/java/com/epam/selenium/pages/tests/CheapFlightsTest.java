@@ -25,21 +25,15 @@ import java.util.concurrent.TimeUnit;
 public class CheapFlightsTest {
 
     private WebDriver driver;
-
-    private By logoXpath = By.xpath("//div[contains(@class, 'logo')]//a[@href='/']");
-    private By originFieldName = By.name("origin");
-
-    private String originFieldAttribute = "value";
-    private String originFieldValue = "";
     private AbstractHomePage homePage;
-    private AbstractSearchPage searchPage;
+
     
     @BeforeClass
     public void launchBrowser() {
         System.setProperty("webdriver.gecko.driver", "./src/main/resources/geckodriver");
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         driver.manage().window().maximize();
 
     }
@@ -70,6 +64,7 @@ public class CheapFlightsTest {
                 .modifyDuration(sliderDivider, sliderMultiplier)
                 .sortByCheapest()
                 .closeFilters();
+
 
         Assert.assertTrue(SearchPageFactory.getCorrectPage(driver).getCheapestFlight().matches(sumPattern));
 
