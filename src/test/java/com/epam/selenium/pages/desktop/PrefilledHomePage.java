@@ -33,7 +33,7 @@ public class PrefilledHomePage extends AbstractHomePage {
     @FindBy(xpath = "//div[@class='contentContainer']")
     private WebElement datePicker;
 
-    @FindBy(xpath = "//div[@class='monthDisplay']")
+    @FindBy(xpath = "(//div[@class=\"col col-month col-month-m\"])[2]//div[@class='monthDisplay']")
     private WebElement monthName;
 
     @FindBy(css = "div[aria-label='Next month']")
@@ -51,7 +51,10 @@ public class PrefilledHomePage extends AbstractHomePage {
     @FindBy(xpath = "(//div[contains(@id, 'adults')]//button[@title=\"Increment\"])[2]")
     private WebElement adultsPlus;
 
-    private By dates = By.xpath("(//div[@class='weeks'])[3]//div[@class='day']");
+    @FindBy(xpath = "(//div[@class=\"col col-month col-month-m\"])[2]")
+    private WebElement monthColumn;
+
+    private By dates = By.xpath("(//div[@class='weeks'])[1]//div[@class='day']");
 
     public PrefilledHomePage chooseOrigin(String from) {
         origin.click();
@@ -73,13 +76,14 @@ public class PrefilledHomePage extends AbstractHomePage {
     public PrefilledHomePage chooseDates(String period, String startDate, String endDate) {
         departureDateField.click();
         waitForVisibilityFluently(datePicker, 10, 1);
-        By october = By.xpath("//div[contains(text(), '" + period + "')]");
+        //By october = By.xpath("//div[contains(text(), '" + period + "')]");
 
-        while (!(monthName.getText().contains(period))) {
+
+        while (!(isVisible(monthColumn, monthName, "October 2018"))) {
             nextButton.click();
-            if (isDisplayed(getDriver().findElements(october))) {
-                break;
-            }
+//            if (isDisplayed(getDriver().findElements(october))) {
+//                break;
+//            }
         }
         By endDateLocator = By.xpath("(//div[@class='weeks'])[3]//div[contains(text(), '" + endDate + "')]");
         List<WebElement> duration = getDriver().findElements(dates);
@@ -107,6 +111,20 @@ public class PrefilledHomePage extends AbstractHomePage {
         }
         closeButton.click();
         return this;
+    }
+
+    public boolean isVisible(WebElement monthColumn, WebElement monthName, String text) {
+        boolean result;
+        try{
+        result = (monthColumn.getAttribute("aria-hidden").equals("false"))&&monthName.getText().contains(text);
+
+        }catch(org.openqa.selenium.NoSuchElementException e) {
+            result = false;
+           // System.out.println(monthColumn.getAttribute("aria-hidden") + monthName.getText());
+        }
+            return result;
+
+
     }
 
 }

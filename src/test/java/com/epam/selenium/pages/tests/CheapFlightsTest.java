@@ -52,13 +52,12 @@ public class CheapFlightsTest {
     }
 
     @Parameters({"origin", "destination", "period",
-            "startDate", "endDate", "numberOfAdults", "sliderDivider", "sliderMultiplier", "dollarSign",  "currencySymbolXpath",
-            "sumXpath", "cheapestFlightXpath", "sumPattern"})
+            "startDate", "endDate", "numberOfAdults",
+            "sliderDivider", "sliderMultiplier",  "sumPattern"})
     @Test(description = "Fill in form on the empty Home AbstractPage")
     public void fillInForm(String origin, String destination, String period,
                            String startDate, String endDate, int numberOfAdults,
-                           int sliderDivider, int sliderMultiplier, String currencySymbolXpath,
-                           String dollarSign, String sumXpath,  String cheapestFlightXpath, String sumPattern) {
+                           int sliderDivider, int sliderMultiplier, String sumPattern) {
         HomePageFactory pageFactory = new HomePageFactory(driver);
         new SearchPageFactory();
         homePage = pageFactory.getCorrectPage(driver);
@@ -72,41 +71,11 @@ public class CheapFlightsTest {
                 .sortByCheapest()
                 .closeFilters();
 
-
-        //System.out.println(SearchPageFactory.getCorrectPage(driver).getCheapestFlight());
         Assert.assertTrue(SearchPageFactory.getCorrectPage(driver).getCheapestFlight().matches(sumPattern));
 
 
     }
 
-//    @Parameters({"searchPageUrl", "dollarSign", "sumPattern", "currencySymbolXpath",
-//            "sumXpath", "cheapestFlightXpath", "sliderDivider", "sliderMultiplier"})
-//    @Test(description = "Filter results", dependsOnMethods = "fillInForm")
-//    public void filterResults(String searchPageUrl, String dollarSign, String sumPattern, String currencySymbolXpath,
-//                              String sumXpath, String cheapestFlightXpath, int sliderDivider, int sliderMultiplier) {
-//        FirstFlightSearchPage sp1 = new FirstFlightSearchPage(driver);
-//        SecondFlightSearchPage sp2 = new SecondFlightSearchPage(driver);
-//        for (String winHandle : driver.getWindowHandles()) {
-//            driver.switchTo().window(winHandle);
-//        }
-//
-//        new WebDriverWait(driver, 40).until(ExpectedConditions.visibilityOf(driver.findElement(logoXpath)));
-//
-//        if (driver.getCurrentUrl().contains(searchPageUrl)) {
-//            sp1.chooseNonstopFlights()
-//                    .modifyDuration(sliderDivider, sliderMultiplier)
-//                    .sortByCheapest()
-//                    .highlightElement(cheapestFlightXpath);
-//            Assert.assertTrue(sp1.getElementText(cheapestFlightXpath).matches(sumPattern));
-//        } else {
-//            sp2.chooseNonStopFlights()
-//                    .modifyDuration(sliderDivider, sliderMultiplier)
-//                    .closeFilters()
-//                    .highlightElement(sumXpath);
-//            Assert.assertTrue(sp2.getElementText(currencySymbolXpath).equals(dollarSign));
-//            Assert.assertTrue(sp2.getElementText(sumXpath).matches(sumPattern));
-//        }
-//    }
 
     @AfterClass(description = "Close browser")
     public void tearDown() {

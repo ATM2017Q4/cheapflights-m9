@@ -83,7 +83,6 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
 
     public FirstFlightSearchPage sortByCheapest() {
         if (sortSectionValue.getText().equals("Cheapest")) {
-        } else {
             sortSection.click();
             waitForVisibilityFluently(sortingList, 5, 1);
             cheapestFlights.click();
