@@ -54,7 +54,7 @@ public class PrefilledHomePage extends AbstractHomePage {
     @FindBy(xpath = "(//div[@class=\"col col-month col-month-m\"])[2]")
     private WebElement monthColumn;
 
-    private By dates = By.xpath("(//div[@class='weeks'])[1]//div[@class='day']");
+    private By dates = By.xpath("(//div[@class='weeks'])[3]//div[@class='day']");
 
     public PrefilledHomePage chooseOrigin(String from) {
         origin.click();
@@ -79,7 +79,7 @@ public class PrefilledHomePage extends AbstractHomePage {
         //By october = By.xpath("//div[contains(text(), '" + period + "')]");
 
 
-        while (!(isVisible(monthColumn, monthName, "October 2018"))) {
+        while (!(isVisible(monthColumn, monthName, period))) {
             nextButton.click();
 //            if (isDisplayed(getDriver().findElements(october))) {
 //                break;
