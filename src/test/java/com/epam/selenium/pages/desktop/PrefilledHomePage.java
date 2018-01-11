@@ -115,14 +115,14 @@ public class PrefilledHomePage extends AbstractHomePage {
 
     public boolean isVisible(WebElement monthColumn, WebElement monthName, String text) {
         boolean result;
-        try{
-        result = (monthColumn.getAttribute("aria-hidden").equals("false"))&&monthName.getText().contains(text);
+        try {
+            result = (monthColumn.getAttribute("aria-hidden").equals("false")) && monthName.getText().contains(text);
 
-        }catch(org.openqa.selenium.NoSuchElementException e) {
+        } catch (org.openqa.selenium.NoSuchElementException e) {
             result = false;
-           // System.out.println(monthColumn.getAttribute("aria-hidden") + monthName.getText());
+            // System.out.println(monthColumn.getAttribute("aria-hidden") + monthName.getText());
         }
-            return result;
+        return result;
 
 
     }

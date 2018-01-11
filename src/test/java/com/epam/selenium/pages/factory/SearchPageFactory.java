@@ -11,12 +11,12 @@ public class SearchPageFactory {
     static String searchPageUrl = "https://global.cheapflights.com/flight-search/MOW-TYO";
 
 
-    public static AbstractSearchPage getCorrectPage(WebDriver driver){
+    public static AbstractSearchPage getCorrectPage(WebDriver driver) {
 
         AbstractSearchPage page;
-        if (driver.getCurrentUrl().contains(searchPageUrl))  {
+        if (driver.getCurrentUrl().contains(searchPageUrl)) {
             page = new FirstFlightSearchPage(driver);
-        }else {
+        } else {
             page = new SecondFlightSearchPage(driver);
         }
         return page;

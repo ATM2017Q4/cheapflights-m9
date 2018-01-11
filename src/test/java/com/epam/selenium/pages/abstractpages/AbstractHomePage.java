@@ -6,9 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public abstract class AbstractHomePage extends AbstractPage{
+public abstract class AbstractHomePage extends AbstractPage {
 
-    public AbstractHomePage(WebDriver driver){
+    public AbstractHomePage(WebDriver driver) {
         super(driver);
     }
 
@@ -31,7 +31,7 @@ public abstract class AbstractHomePage extends AbstractPage{
         return this;
     }
 
-    public AbstractHomePage chooseDates(String period, String startDate, String endDate){
+    public AbstractHomePage chooseDates(String period, String startDate, String endDate) {
         return this;
     }
 
@@ -39,7 +39,7 @@ public abstract class AbstractHomePage extends AbstractPage{
         return this;
     }
 
-    public AbstractSearchPage submitForm(){
+    public AbstractSearchPage submitForm() {
         submitButton.click();
         String parentWindow = getDriver().getWindowHandle();
         for (String childWindow : getDriver().getWindowHandles()) {
@@ -50,8 +50,6 @@ public abstract class AbstractHomePage extends AbstractPage{
         waitForVisibilityFluently(getDriver().findElement(logoXpath), 40, 5);
         return SearchPageFactory.getCorrectPage(getDriver());
     }
-
-
 
 
 }

@@ -27,7 +27,7 @@ public class CheapFlightsTest {
     private WebDriver driver;
     private AbstractHomePage homePage;
 
-    
+
     @BeforeClass
     public void launchBrowser() {
         System.setProperty("webdriver.gecko.driver", "./src/main/resources/geckodriver");
@@ -47,9 +47,9 @@ public class CheapFlightsTest {
 
     @Parameters({"origin", "destination", "period",
             "startDate", "endDate", "numberOfAdults",
-            "sliderDivider", "sliderMultiplier",  "sumPattern"})
+            "sliderDivider", "sliderMultiplier", "sumPattern"})
     @Test(description = "Fill in form on the empty Home AbstractPage")
-    public void fillInForm(String origin, String destination, String period,
+    public void chooseTheCheapestFlight(String origin, String destination, String period,
                            String startDate, String endDate, int numberOfAdults,
                            int sliderDivider, int sliderMultiplier, String sumPattern) {
         HomePageFactory pageFactory = new HomePageFactory(driver);
@@ -65,9 +65,7 @@ public class CheapFlightsTest {
                 .sortByCheapest()
                 .closeFilters();
 
-
         Assert.assertTrue(SearchPageFactory.getCorrectPage(driver).getCheapestFlight().matches(sumPattern));
-
 
     }
 

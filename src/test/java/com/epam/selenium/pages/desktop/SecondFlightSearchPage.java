@@ -80,10 +80,9 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
 
     }
 
-    public String getCheapestFlightXpath(){
+    public String getCheapestFlightXpath() {
         return cheapestFlightXpath;
     }
-
 
 
     public String getCheapestFlight() {

@@ -18,15 +18,16 @@ public class HomePageFactory {
     @FindBy(name = "origin")
     protected static WebElement origin;
 
-   public HomePageFactory(WebDriver driver){
-       this.driver = driver;
-       PageFactory.initElements(driver, this);
-   }
-    public static AbstractHomePage getCorrectPage(WebDriver driver){
+    public HomePageFactory(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    public static AbstractHomePage getCorrectPage(WebDriver driver) {
         AbstractHomePage page;
         if (origin.getAttribute(originFieldAttribute).equals(originFieldValue)) {
             page = new EmptyHomePage(driver);
-        }else {
+        } else {
             page = new PrefilledHomePage(driver);
         }
         return page;
