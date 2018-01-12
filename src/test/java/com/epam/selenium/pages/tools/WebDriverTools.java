@@ -1,60 +1,42 @@
-package com.epam.selenium.pages.abstractpages;
+package com.epam.selenium.pages.tools;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
+
+public class WebDriverTools {
 
 
-public abstract class AbstractPage {
-
-    protected static WebDriver driver;
-    protected Logger logger = Logger.getLogger(this.getClass().getName());
-
-
-    public AbstractPage(WebDriver driver) {
-
-        this.driver = driver;
-        PageFactory.initElements(this.driver, this);
-    }
-
-
-    public WebDriver getDriver() {
-        return driver;
-    }
-
-    public void waitForVisibilityFluently(WebElement element, int timeout, int poll) {
+    public static void waitForVisibilityFluently(WebDriver driver, WebElement element, int timeout, int poll) {
         new FluentWait(driver).withTimeout(timeout, TimeUnit.SECONDS).pollingEvery(poll, TimeUnit.SECONDS)
                 .ignoring(org.openqa.selenium.NoSuchElementException.class)
                 .until(ExpectedConditions.visibilityOf(element));
 
     }
 
-    public void waitForInvisibilityExplicitly(WebElement element, int timeout) {
+    public static void waitForInvisibilityExplicitly(WebDriver driver, WebElement element, int timeout) {
         new WebDriverWait(driver, timeout).until(ExpectedConditions.invisibilityOf(element));
     }
 
-    public void waitForAttributeToBe(By by, String attribute, String value, int timeout) {
+    public static void waitForAttributeToBe(WebDriver driver, By by, String attribute, String value, int timeout) {
         new WebDriverWait(driver, timeout).until(ExpectedConditions.attributeToBe(by, attribute, value));
     }
 
 
-    public boolean waitForJSandJQueryToLoad() {
+    public static boolean waitForJSandJQueryToLoad(WebDriver driver) {
         WebDriverWait wait = new WebDriverWait(driver, 30);
         ExpectedCondition<Boolean> jQueryLoad = new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
                 try {
-                    return ((Long) ((JavascriptExecutor) getDriver()).executeScript("return jQuery.active") == 0);
+                    return ((Long) ((JavascriptExecutor) driver).executeScript("return jQuery.active") == 0);
                 } catch (Exception e) {
                     return true;
                 }
@@ -62,7 +44,7 @@ public abstract class AbstractPage {
         };
         ExpectedCondition<Boolean> jsLoad = new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
-                return ((JavascriptExecutor) getDriver()).executeScript("return document.readyState")
+                return ((JavascriptExecutor) driver).executeScript("return document.readyState")
                         .toString().equals("complete");
             }
         };
@@ -80,10 +62,8 @@ public abstract class AbstractPage {
         return result;
     }
 
-    public void highlightElement(String xpath) {
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-        jsExecutor.executeScript("arguments[0].setAttribute('style','border: solid 2px red')", this.getDriver().findElement(By.xpath(xpath)));
-    }
-
-
+//    public void highlightElement(String xpath) {
+//        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+//        jsExecutor.executeScript("arguments[0].setAttribute('style','border: solid 2px red')", this.getDriver().findElement(By.xpath(xpath)));
+//    }
 }

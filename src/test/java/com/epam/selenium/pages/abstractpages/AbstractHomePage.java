@@ -1,15 +1,20 @@
 package com.epam.selenium.pages.abstractpages;
 
 import com.epam.selenium.pages.factory.SearchPageFactory;
+import com.epam.selenium.pages.tools.WebDriverTools;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-public abstract class AbstractHomePage extends AbstractPage {
+public abstract class AbstractHomePage {
+    protected static WebDriver driver;
 
     public AbstractHomePage(WebDriver driver) {
-        super(driver);
+
+        this.driver = driver;
+        PageFactory.initElements(this.driver, this);
     }
 
     @FindBy(name = "origin")
@@ -41,14 +46,14 @@ public abstract class AbstractHomePage extends AbstractPage {
 
     public AbstractSearchPage submitForm() {
         submitButton.click();
-        String parentWindow = getDriver().getWindowHandle();
-        for (String childWindow : getDriver().getWindowHandles()) {
+        String parentWindow = driver.getWindowHandle();
+        for (String childWindow : driver.getWindowHandles()) {
             if (childWindow != parentWindow) {
-                getDriver().switchTo().window(childWindow);
+                driver.switchTo().window(childWindow);
             }
         }
-        waitForVisibilityFluently(getDriver().findElement(logoXpath), 40, 5);
-        return SearchPageFactory.getCorrectPage(getDriver());
+        WebDriverTools.waitForVisibilityFluently(driver, driver.findElement(logoXpath), 40, 5);
+        return SearchPageFactory.getCorrectPage(driver);
     }
 
 

@@ -1,9 +1,7 @@
 package com.epam.selenium.pages.desktop;
 
 import com.epam.selenium.pages.abstractpages.AbstractHomePage;
-import com.epam.selenium.pages.abstractpages.AbstractPage;
-import com.epam.selenium.pages.abstractpages.AbstractSearchPage;
-import com.epam.selenium.pages.factory.SearchPageFactory;
+import com.epam.selenium.pages.tools.WebDriverTools;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -60,7 +58,7 @@ public class PrefilledHomePage extends AbstractHomePage {
         origin.click();
         origin.clear();
         origin.sendKeys(from);
-        waitForVisibilityFluently(originOptions, 2, 1);
+        WebDriverTools.waitForVisibilityFluently(driver, originOptions, 2, 1);
         origin.sendKeys(Keys.ENTER);
         return this;
     }
@@ -68,14 +66,14 @@ public class PrefilledHomePage extends AbstractHomePage {
     public PrefilledHomePage chooseDestination(String to) {
         destination.click();
         destination.sendKeys(to);
-        waitForVisibilityFluently(destinationOptions, 2, 1);
+        WebDriverTools.waitForVisibilityFluently(driver, destinationOptions, 2, 1);
         destination.sendKeys(Keys.ENTER);
         return this;
     }
 
     public PrefilledHomePage chooseDates(String period, String startDate, String endDate) {
         departureDateField.click();
-        waitForVisibilityFluently(datePicker, 10, 1);
+        WebDriverTools.waitForVisibilityFluently(driver, datePicker, 10, 1);
         //By october = By.xpath("//div[contains(text(), '" + period + "')]");
 
 
@@ -86,14 +84,14 @@ public class PrefilledHomePage extends AbstractHomePage {
 //            }
         }
         By endDateLocator = By.xpath("(//div[@class='weeks'])[3]//div[contains(text(), '" + endDate + "')]");
-        List<WebElement> duration = getDriver().findElements(dates);
+        List<WebElement> duration = driver.findElements(dates);
         for (WebElement day : duration) {
             if (day.getText().equals(startDate)) {
-                Actions chooser = new Actions(getDriver());
+                Actions chooser = new Actions(driver);
                 chooser.click(day)
                         .sendKeys(Keys.TAB)
-                        .moveToElement(getDriver().findElement(endDateLocator))
-                        .click(getDriver().findElement(endDateLocator))
+                        .moveToElement(driver.findElement(endDateLocator))
+                        .click(driver.findElement(endDateLocator))
                         .build().perform();
 
                 break;

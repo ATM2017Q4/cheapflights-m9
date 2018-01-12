@@ -1,8 +1,7 @@
 package com.epam.selenium.pages.desktop;
 
-import com.epam.selenium.pages.abstractpages.AbstractPage;
 import com.epam.selenium.pages.abstractpages.AbstractSearchPage;
-import com.epam.selenium.pages.factory.SearchPageFactory;
+import com.epam.selenium.pages.tools.WebDriverTools;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -48,17 +47,17 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
 
     public FirstFlightSearchPage chooseNonStopFlights() {
         try {
-            waitForInvisibilityExplicitly(progressBar, 100);
+            WebDriverTools.waitForInvisibilityExplicitly(driver, progressBar, 100);
         } catch (org.openqa.selenium.TimeoutException e) {
             logger.log(Level.SEVERE, "Driver was unable to locate the element during the specified amount of time", e);
         } catch (org.openqa.selenium.NoSuchElementException e) {
             logger.log(Level.SEVERE, "Driver was not able to find the element by the specified locator." + e);
         } finally {
-            waitForJSandJQueryToLoad();
+            WebDriverTools.waitForJSandJQueryToLoad(driver);
             oneStop.click();
-            waitForJSandJQueryToLoad();
+            WebDriverTools.waitForJSandJQueryToLoad(driver);
             twoStops.click();
-            waitForJSandJQueryToLoad();
+            WebDriverTools.waitForJSandJQueryToLoad(driver);
 
         }
         return this;
@@ -77,16 +76,16 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
                         (slider, -((sliderWidth / divider) * multiplier), 0)
                 .build()
                 .perform();
-        waitForJSandJQueryToLoad();
+        WebDriverTools.waitForJSandJQueryToLoad(driver);
         return this;
     }
 
     public FirstFlightSearchPage sortByCheapest() {
         if (sortSectionValue.getText().equals("Cheapest")) {
             sortSection.click();
-            waitForVisibilityFluently(sortingList, 5, 1);
+            WebDriverTools.waitForVisibilityFluently(driver, sortingList, 5, 1);
             cheapestFlights.click();
-            waitForAttributeToBe(loadComplete, "class", "resultsListCover tl", 20);
+            WebDriverTools.waitForAttributeToBe(driver, loadComplete, "class", "resultsListCover tl", 20);
 
         }
         return this;
@@ -94,7 +93,7 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
 
     public String getCheapestFlight() {
         setCheapestFlight(cheapestFlightXpath);
-        return getDriver().findElement(By.xpath(cheapestFlightXpath)).getText();
+        return driver.findElement(By.xpath(cheapestFlightXpath)).getText();
     }
 
 }

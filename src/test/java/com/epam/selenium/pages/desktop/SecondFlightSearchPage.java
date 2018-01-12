@@ -1,6 +1,7 @@
 package com.epam.selenium.pages.desktop;
 
 import com.epam.selenium.pages.abstractpages.AbstractSearchPage;
+import com.epam.selenium.pages.tools.WebDriverTools;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -46,13 +47,13 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
 
     public SecondFlightSearchPage chooseNonStopFlights() {
         try {
-            waitForVisibilityFluently(cheapestFlight, 300, 10);
+            WebDriverTools.waitForVisibilityFluently(driver, cheapestFlight, 300, 10);
         } catch (org.openqa.selenium.NoSuchElementException e) {
             logger.log(Level.SEVERE, "Driver was unable to locate the element: either the page didn't load properly or the element doesn't exist");
-            waitForVisibilityFluently(cheapestFlight, 150, 10);
+            WebDriverTools.waitForVisibilityFluently(driver, cheapestFlight, 150, 10);
         } finally {
             stopsFilter.click();
-            waitForJSandJQueryToLoad();
+            WebDriverTools.waitForJSandJQueryToLoad(driver);
             oneStop.click();
             multiStops.click();
         }
@@ -76,7 +77,7 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
 
     public void closeFilters() {
         closeButton.click();
-        waitForInvisibilityExplicitly(updateIndicator, 10);
+        WebDriverTools.waitForInvisibilityExplicitly(driver, updateIndicator, 10);
 
     }
 
@@ -87,7 +88,7 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
 
     public String getCheapestFlight() {
         setCheapestFlight(cheapestFlightXpath);
-        return getDriver().findElement(By.xpath(getCheapestFlightXpath())).getText();
+        return driver.findElement(By.xpath(getCheapestFlightXpath())).getText();
     }
 
 }

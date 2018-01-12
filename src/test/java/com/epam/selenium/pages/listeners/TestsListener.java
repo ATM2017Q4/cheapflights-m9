@@ -6,7 +6,7 @@ import org.testng.ITestResult;
 
 import java.util.logging.Logger;
 
-public class TestsListener implements ITestListener{
+public class TestsListener implements ITestListener {
     protected Logger logger = Logger.getLogger(this.getClass().getName());
 
     public void onTestStart(ITestResult iTestResult) {
@@ -36,6 +36,7 @@ public class TestsListener implements ITestListener{
     public void onFinish(ITestContext iTestContext) {
 
     }
+
     private static String getTestMethodName(ITestResult result) {
         return result.getMethod().getConstructorOrMethod().getName();
 

@@ -1,6 +1,7 @@
 package com.epam.selenium.pages.desktop;
 
 import com.epam.selenium.pages.abstractpages.AbstractHomePage;
+import com.epam.selenium.pages.tools.WebDriverTools;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -43,7 +44,7 @@ public class EmptyHomePage extends AbstractHomePage {
     public EmptyHomePage chooseOrigin(String from) {
         origin.click();
         origin.sendKeys(from);
-        waitForVisibilityFluently(options, 2, 1);
+        WebDriverTools.waitForVisibilityFluently(driver, options, 2, 1);
         origin.sendKeys(Keys.ARROW_DOWN);
         origin.sendKeys(Keys.ENTER);
         return this;
@@ -55,7 +56,7 @@ public class EmptyHomePage extends AbstractHomePage {
         destination.click();
 
         destination.sendKeys(to);
-        waitForVisibilityFluently(options, 2, 1);
+        WebDriverTools.waitForVisibilityFluently(driver, options, 2, 1);
         destination.sendKeys(Keys.ARROW_DOWN);
         destination.sendKeys(Keys.ENTER);
         return this;
@@ -67,7 +68,7 @@ public class EmptyHomePage extends AbstractHomePage {
             nextButton.click();
 
         }
-        List<WebElement> departure = getDriver().findElements(departureDates);
+        List<WebElement> departure = driver.findElements(departureDates);
 
         for (WebElement cell : departure) {
             if (cell.getText().equals(startDate)) {
@@ -78,7 +79,7 @@ public class EmptyHomePage extends AbstractHomePage {
 
         arrivalField.click();
 
-        List<WebElement> arrival = getDriver().findElements(returnDates);
+        List<WebElement> arrival = driver.findElements(returnDates);
         for (WebElement cell : arrival) {
             if (cell.getText().equals(endDate)) {
                 cell.click();
