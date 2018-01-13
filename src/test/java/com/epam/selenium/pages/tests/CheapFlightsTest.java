@@ -55,11 +55,9 @@ public class CheapFlightsTest {
                 .modifyDuration(sliderDivider, sliderMultiplier)
                 .sortByCheapest()
                 .closeFilters();
-
         Assert.assertTrue(SearchPageFactory.getCorrectPage(driver).getCheapestFlight() < 550);
 
     }
-
 
     @AfterClass(description = "Close browser")
     public void tearDown() {

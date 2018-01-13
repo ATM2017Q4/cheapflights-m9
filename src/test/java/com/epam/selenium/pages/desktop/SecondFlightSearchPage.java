@@ -57,7 +57,6 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
             oneStop.click();
             multiStops.click();
         }
-
         return this;
     }
 
@@ -72,13 +71,11 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
                 .build()
                 .perform();
         return this;
-
     }
 
     public void closeFilters() {
         closeButton.click();
         WebDriverTools.waitForInvisibilityExplicitly(driver, updateIndicator, 10);
-
     }
 
 

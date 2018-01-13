@@ -58,7 +58,6 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
             WebDriverTools.waitForJSandJQueryToLoad(driver);
             twoStops.click();
             WebDriverTools.waitForJSandJQueryToLoad(driver);
-
         }
         return this;
     }
@@ -86,7 +85,6 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
             WebDriverTools.waitForVisibilityFluently(driver, sortingList, 5, 1);
             cheapestFlights.click();
             WebDriverTools.waitForAttributeToBe(driver, loadComplete, "class", "resultsListCover tl", 20);
-
         }
         return this;
     }

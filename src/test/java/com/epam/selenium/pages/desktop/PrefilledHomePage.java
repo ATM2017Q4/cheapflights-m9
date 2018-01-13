@@ -74,15 +74,11 @@ public class PrefilledHomePage extends AbstractHomePage {
     public PrefilledHomePage chooseDates(String period, String startDate, String endDate) {
         departureDateField.click();
         WebDriverTools.waitForVisibilityFluently(driver, datePicker, 10, 1);
-        //By october = By.xpath("//div[contains(text(), '" + period + "')]");
-
 
         while (!(isVisible(monthColumn, monthName, period))) {
             nextButton.click();
-//            if (isDisplayed(getDriver().findElements(october))) {
-//                break;
-//            }
         }
+
         By endDateLocator = By.xpath("(//div[@class='weeks'])[3]//div[contains(text(), '" + endDate + "')]");
         List<WebElement> duration = driver.findElements(dates);
         for (WebElement day : duration) {
@@ -93,12 +89,10 @@ public class PrefilledHomePage extends AbstractHomePage {
                         .moveToElement(driver.findElement(endDateLocator))
                         .click(driver.findElement(endDateLocator))
                         .build().perform();
-
                 break;
             }
         }
         return this;
-
     }
 
     public PrefilledHomePage increaseNumberOfAdults(int number) {
@@ -118,7 +112,6 @@ public class PrefilledHomePage extends AbstractHomePage {
 
         } catch (org.openqa.selenium.NoSuchElementException e) {
             result = false;
-            // System.out.println(monthColumn.getAttribute("aria-hidden") + monthName.getText());
         }
         return result;
 
