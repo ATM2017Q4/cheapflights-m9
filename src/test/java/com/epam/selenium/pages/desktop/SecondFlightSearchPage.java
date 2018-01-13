@@ -81,14 +81,11 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
 
     }
 
-    public String getCheapestFlightXpath() {
-        return cheapestFlightXpath;
-    }
 
-
-    public String getCheapestFlight() {
-        setCheapestFlight(cheapestFlightXpath);
-        return driver.findElement(By.xpath(getCheapestFlightXpath())).getText();
+    public int getCheapestFlight() {
+        String cheapestFlight = driver.findElement(By.xpath(cheapestFlightXpath)).getText();
+        int sum = Integer.parseInt(cheapestFlight);
+        return sum;
     }
 
 }

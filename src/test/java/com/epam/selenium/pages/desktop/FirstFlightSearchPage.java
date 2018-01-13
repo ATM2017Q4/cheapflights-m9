@@ -91,9 +91,13 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
         return this;
     }
 
-    public String getCheapestFlight() {
-        setCheapestFlight(cheapestFlightXpath);
-        return driver.findElement(By.xpath(cheapestFlightXpath)).getText();
+    public int getCheapestFlight() {
+        String[] price;
+        int sum;
+        String cheapestFlight = driver.findElement(By.xpath(cheapestFlightXpath)).getText();
+        price = cheapestFlight.split("\\$");
+        sum = Integer.parseInt(price[1]);
+        return sum;
     }
 
 }

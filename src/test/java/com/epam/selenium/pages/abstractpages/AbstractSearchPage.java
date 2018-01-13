@@ -32,16 +32,9 @@ public abstract class AbstractSearchPage {
         return this;
     }
 
-    public String getCheapestFlight() {
-        return driver.findElement(By.xpath(cheapestFlightXpath)).getText();
-    }
-
-    public void setCheapestFlight(String cheapestFlightXpath) {
-        this.cheapestFlightXpath = cheapestFlightXpath;
-    }
-
-    public String getCheapestFlightXpath() {
-        return cheapestFlightXpath;
+    public int getCheapestFlight() {
+        int sum = Integer.parseInt(driver.findElement(By.xpath(cheapestFlightXpath)).getText());
+        return sum;
     }
 
     public void closeFilters() {

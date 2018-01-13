@@ -24,7 +24,7 @@ public class CheapFlightsTest {
         System.setProperty("webdriver.gecko.driver", "./src/main/resources/geckodriver");
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         driver.manage().window().maximize();
 
     }
@@ -56,7 +56,7 @@ public class CheapFlightsTest {
                 .sortByCheapest()
                 .closeFilters();
 
-        Assert.assertTrue(SearchPageFactory.getCorrectPage(driver).getCheapestFlight().matches(sumPattern));
+        Assert.assertTrue(SearchPageFactory.getCorrectPage(driver).getCheapestFlight()<550);
 
     }
 
