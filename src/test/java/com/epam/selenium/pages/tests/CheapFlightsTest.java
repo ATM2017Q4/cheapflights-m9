@@ -38,11 +38,11 @@ public class CheapFlightsTest {
 
     @Parameters({"origin", "destination", "period",
             "startDate", "endDate", "numberOfAdults",
-            "sliderDivider", "sliderMultiplier", "sumPattern"})
+            "sliderDivider", "sliderMultiplier"})
     @Test(description = "Fill in form and get the cheapest flight")
     public void chooseTheCheapestFlight(String origin, String destination, String period,
                                         String startDate, String endDate, int numberOfAdults,
-                                        int sliderDivider, int sliderMultiplier, String sumPattern) {
+                                        int sliderDivider, int sliderMultiplier) {
         HomePageFactory pageFactory = new HomePageFactory(driver);
         new SearchPageFactory();
         homePage = pageFactory.getCorrectPage(driver);
@@ -56,7 +56,7 @@ public class CheapFlightsTest {
                 .sortByCheapest()
                 .closeFilters();
 
-        Assert.assertTrue(SearchPageFactory.getCorrectPage(driver).getCheapestFlight()<550);
+        Assert.assertTrue(SearchPageFactory.getCorrectPage(driver).getCheapestFlight() < 550);
 
     }
 
