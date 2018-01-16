@@ -1,8 +1,8 @@
-package com.epam.selenium.pages.tests;
+package com.cheapflights.tests;
 
-import com.epam.selenium.pages.abstractpages.AbstractHomePage;
-import com.epam.selenium.pages.factory.HomePageFactory;
-import com.epam.selenium.pages.factory.SearchPageFactory;
+import com.cheapflights.abstractpages.AbstractHomePage;
+import com.cheapflights.factory.SearchPageFactory;
+import com.cheapflights.factory.HomePageFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
