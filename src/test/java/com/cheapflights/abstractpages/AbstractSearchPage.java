@@ -18,8 +18,6 @@ public abstract class AbstractSearchPage {
         PageFactory.initElements(this.driver, this);
     }
 
-    private static String cheapestFlightXpath;
-
     public abstract AbstractSearchPage chooseNonStopFlights();
 
     public abstract AbstractSearchPage modifyDuration(int divider, int multiplier);
