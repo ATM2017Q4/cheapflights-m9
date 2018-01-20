@@ -20,22 +20,15 @@ public abstract class AbstractSearchPage {
 
     private static String cheapestFlightXpath;
 
-    public AbstractSearchPage chooseNonStopFlights() {
-        return this;
-    }
+    public abstract AbstractSearchPage chooseNonStopFlights();
 
-    public AbstractSearchPage modifyDuration(int divider, int multiplier) {
-        return this;
-    }
+    public abstract AbstractSearchPage modifyDuration(int divider, int multiplier);
 
     public AbstractSearchPage sortByCheapest() {
         return this;
     }
 
-    public int getCheapestFlight() {
-        int sum = Integer.parseInt(driver.findElement(By.xpath(cheapestFlightXpath)).getText());
-        return sum;
-    }
+    public abstract int getCheapestFlight();
 
     public void closeFilters() {
 
