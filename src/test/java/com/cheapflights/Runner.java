@@ -1,6 +1,7 @@
 package com.cheapflights;
 
 import com.cheapflights.tests.CheapFlightsTest;
+import com.cheapflights.utils.FileSearchUtil;
 import com.cheapflights.utils.JsonUtil;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
@@ -18,7 +19,17 @@ public class Runner {
         } catch (CmdLineException e) {
             e.printStackTrace();
         }
-        JsonUtil.fileName = settings.firstTest;
+        if (settings.isFirstTest()){
+            FileSearchUtil.testFirst("./src/main/resources", ".json");
+        }
+        if (settings.isRandomTest()){
+            FileSearchUtil.testAll("./src/main/resources", ".json");
+        }
+
+        if(settings.isAllTests()){
+
+        }
+
         Class[] classes = new Class[]{
                 CheapFlightsTest.class
         };

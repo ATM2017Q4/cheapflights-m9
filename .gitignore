@@ -27,3 +27,9 @@ geckodriver
 *.jar
 */*.jar
 */selenium-server-standalone*
+
+#test-output folders
+test-output/
+test-output
+/test-output
+/test-output/
