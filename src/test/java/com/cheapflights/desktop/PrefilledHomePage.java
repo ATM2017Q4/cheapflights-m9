@@ -1,7 +1,7 @@
 package com.cheapflights.desktop;
 
 import com.cheapflights.abstractpages.AbstractHomePage;
-import com.cheapflights.tools.WebDriverTools;
+import com.cheapflights.utils.WebDriverTools;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;

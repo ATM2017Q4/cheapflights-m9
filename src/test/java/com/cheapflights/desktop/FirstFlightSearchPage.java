@@ -1,6 +1,6 @@
 package com.cheapflights.desktop;
 
-import com.cheapflights.tools.WebDriverTools;
+import com.cheapflights.utils.WebDriverTools;
 import com.cheapflights.abstractpages.AbstractSearchPage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;

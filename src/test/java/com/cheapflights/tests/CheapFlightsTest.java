@@ -1,14 +1,15 @@
 package com.cheapflights.tests;
 
+import com.cheapflights.entities.TravelInfo;
 import com.cheapflights.abstractpages.AbstractHomePage;
 import com.cheapflights.factory.SearchPageFactory;
 import com.cheapflights.factory.HomePageFactory;
+import com.cheapflights.utils.JsonUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.AfterClass;
 
 import java.util.concurrent.TimeUnit;
@@ -17,6 +18,8 @@ public class CheapFlightsTest {
 
     private WebDriver driver;
     private AbstractHomePage homePage;
+    private TravelInfo travelInfo;
+    private String url = "https://cheapflights.com/";
 
 
     @BeforeClass
@@ -29,32 +32,28 @@ public class CheapFlightsTest {
 
     }
 
-    @Parameters({"url"})
     @BeforeClass(dependsOnMethods = "launchBrowser", description = "Add implicit wait and maximize window")
-    public void openUrl(String url) {
+    public void openUrl() {
         driver.get(url);
 
     }
 
-    @Parameters({"origin", "destination", "period",
-            "startDate", "endDate", "numberOfAdults",
-            "sliderDivider", "sliderMultiplier"})
+
     @Test(description = "Fill in form and get the cheapest flight")
-    public void chooseTheCheapestFlight(String origin, String destination, String period,
-                                        String startDate, String endDate, int numberOfAdults,
-                                        int sliderDivider, int sliderMultiplier) {
+    public void chooseTheCheapestFlight() {
         HomePageFactory pageFactory = new HomePageFactory(driver);
+        travelInfo = JsonUtil.readJson(JsonUtil.getFileName(), TravelInfo.class);
         homePage = pageFactory.getCorrectPage(driver);
-        homePage.chooseOrigin(origin)
-                .chooseDestination(destination)
-                .chooseDates(period, startDate, endDate)
-                .increaseNumberOfAdults(numberOfAdults)
+        homePage.chooseOrigin(travelInfo.getOrigin())
+                .chooseDestination(travelInfo.getDestination())
+                .chooseDates(travelInfo.getDepartureDates().getMonth(), Integer.toString(travelInfo.getDepartureDates().getDay()), Integer.toString(travelInfo.getReturnDates().getDay()))
+                .increaseNumberOfAdults(travelInfo.getNumberOfAdults())
                 .submitForm()
                 .chooseNonStopFlights()
-                .modifyDuration(sliderDivider, sliderMultiplier)
+                .modifyDuration(4, 3)
                 .sortByCheapest()
                 .closeFilters();
-        Assert.assertTrue(SearchPageFactory.getCorrectPage(driver).getCheapestFlight() < 550);
+        Assert.assertTrue(SearchPageFactory.getCorrectPage(driver).getCheapestFlight() < travelInfo.getAcceptablePrice());
 
     }
 

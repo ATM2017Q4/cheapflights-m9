@@ -1,11 +1,12 @@
-package com.cheapflights.Entities;
+package com.cheapflights.entities;
 
 public class TravelInfo {
     private String origin;
     private String destination;
-    private String numberOfAdults;
+    private int numberOfAdults;
     private DepartureDates departureDates;
     private ReturnDates returnDates;
+    private int acceptablePrice;
 
 
     public DepartureDates getDepartureDates() {
@@ -33,11 +34,11 @@ public class TravelInfo {
         this.origin = origin;
     }
 
-    public String getNumberOfAdults() {
+    public int getNumberOfAdults() {
         return numberOfAdults;
     }
 
-    public void setNumberOfAdults(String numberOfAdults) {
+    public void setNumberOfAdults(int numberOfAdults) {
         this.numberOfAdults = numberOfAdults;
     }
 
@@ -49,7 +50,15 @@ public class TravelInfo {
         this.destination = destination;
     }
 
-    static class DepartureDates {
+    public int getAcceptablePrice() {
+        return acceptablePrice;
+    }
+
+    public void setAcceptablePrice(int acceptablePrice) {
+        this.acceptablePrice = acceptablePrice;
+    }
+
+    public static class DepartureDates {
         private int day;
         private String month;
         private int year;
@@ -79,7 +88,7 @@ public class TravelInfo {
         }
     }
 
-    static class ReturnDates {
+    public static class ReturnDates {
         private int day;
         private String month;
         private int year;

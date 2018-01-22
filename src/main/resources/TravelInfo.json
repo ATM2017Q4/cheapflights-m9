@@ -11,6 +11,7 @@
       "month": "October",
       "year": 2018
     },
-    "numberOfAdults": 2
+    "numberOfAdults": 2,
+    "acceptablePrice": 550
 
 }
