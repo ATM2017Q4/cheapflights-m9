@@ -8,11 +8,13 @@ import com.cheapflights.utils.JsonUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
+import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterClass;
 
 import java.util.concurrent.TimeUnit;
+
 
 public class CheapFlightsTest {
 
@@ -22,7 +24,7 @@ public class CheapFlightsTest {
     private String url = "https://cheapflights.com/";
 
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void launchBrowser() {
         System.setProperty("webdriver.gecko.driver", "./src/main/resources/geckodriver");
         driver = new FirefoxDriver();
@@ -32,17 +34,17 @@ public class CheapFlightsTest {
 
     }
 
-    @BeforeClass(dependsOnMethods = "launchBrowser", description = "Add implicit wait and maximize window")
+    @BeforeClass(dependsOnMethods = "launchBrowser", description = "Add implicit wait and maximize window", alwaysRun = true)
     public void openUrl() {
         driver.get(url);
 
     }
 
 
-    @Test(description = "Fill in form and get the cheapest flight")
+    @Test(description = "Fill in form and get the cheapest flight", groups = {"first", "all"})
     public void chooseTheCheapestFlight() {
         HomePageFactory pageFactory = new HomePageFactory(driver);
-        travelInfo = JsonUtil.readJson(JsonUtil.getFileName(), TravelInfo.class);
+        travelInfo = JsonUtil.readJson("./src/main/resources/TravelInfo.json", TravelInfo.class);
         homePage = pageFactory.getCorrectPage(driver);
         homePage.chooseOrigin(travelInfo.getOrigin())
                 .chooseDestination(travelInfo.getDestination())
@@ -57,7 +59,7 @@ public class CheapFlightsTest {
 
     }
 
-    @AfterClass(description = "Close browser")
+    @AfterClass(description = "Close browser", alwaysRun = true)
     public void tearDown() {
         driver.quit();
     }

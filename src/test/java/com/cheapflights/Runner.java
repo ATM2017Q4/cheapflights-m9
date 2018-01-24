@@ -1,17 +1,31 @@
 package com.cheapflights;
 
-import com.cheapflights.tests.CheapFlightsTest;
-import com.cheapflights.utils.FileSearchUtil;
-import com.cheapflights.utils.JsonUtil;
+
+import com.cheapflights.utils.RandomUtil;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
+
 import org.testng.TestNG;
+import org.testng.xml.XmlSuite;
+import org.testng.xml.XmlTest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Runner {
-    protected static TestNG testNG = new TestNG();
+
+
     public static void main(String[] args) {
+        TestNG testNG = new TestNG();
         Settings settings = new Settings();
         CmdLineParser parser = new CmdLineParser(settings);
+
+        XmlSuite suite = new XmlSuite();
+
+        List<String> files = new ArrayList<>();
+        files.add("./src/main/resources/testng.xml");
+
+        suite.setSuiteFiles(files);
 
         try {
             parser.parseArgument(args);
@@ -19,21 +33,22 @@ public class Runner {
         } catch (CmdLineException e) {
             e.printStackTrace();
         }
-        if (settings.isFirstTest()){
-            FileSearchUtil.testFirst("./src/main/resources", ".json");
+        if (settings.isFirstTest()) {
+            suite.addIncludedGroup("first");
         }
-        if (settings.isRandomTest()){
-            FileSearchUtil.testAll("./src/main/resources", ".json");
+        else if (settings.isRandomTest()){
+            if (suite.getIncludedGroups().equals("all")){
+               suite.addTest(suite.getTests().get(RandomUtil.generateRandom(0, suite.getTests().size())));
+            }
+        }
+        else if(settings.isAllTests()){
+            suite.addIncludedGroup("all");
         }
 
-        if(settings.isAllTests()){
+        List<XmlSuite> suites = new ArrayList<>();
+        suites.add(suite);
 
-        }
-
-        Class[] classes = new Class[]{
-                CheapFlightsTest.class
-        };
-        testNG.setTestClasses(classes);
+        testNG.setXmlSuites(suites);
         testNG.run();
 
     }

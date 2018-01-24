@@ -20,12 +20,6 @@ public class JsonUtil {
         }
     }
 
-    public static String getFileName(){
-        return fileName;
-    }
-    public static void setFileName(String fileName){
-        JsonUtil.fileName = fileName;
-    }
 
 
 }
