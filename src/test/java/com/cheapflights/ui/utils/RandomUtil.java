@@ -1,4 +1,4 @@
-package com.cheapflights.utils;
+package com.cheapflights.ui.utils;
 
 import java.util.concurrent.ThreadLocalRandom;
 

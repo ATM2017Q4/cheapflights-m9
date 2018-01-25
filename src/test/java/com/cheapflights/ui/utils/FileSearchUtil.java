@@ -1,7 +1,4 @@
-package com.cheapflights.utils;
-
-import com.cheapflights.entities.TravelInfo;
-import org.testng.annotations.DataProvider;
+package com.cheapflights.ui.utils;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -21,7 +18,7 @@ public class FileSearchUtil {
                     path -> path.toString().endsWith(extension));
             for (Path file : stream){
                 files.add(file.toString());
-                System.out.println(files);
+                System.out.println(file);
             }
 
 

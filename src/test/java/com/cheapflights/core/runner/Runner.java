@@ -1,13 +1,11 @@
-package com.cheapflights;
+package com.cheapflights.core.runner;
 
 
-import com.cheapflights.utils.RandomUtil;
+import com.cheapflights.common.util.Settings;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
-
 import org.testng.TestNG;
 import org.testng.xml.XmlSuite;
-import org.testng.xml.XmlTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,28 +27,24 @@ public class Runner {
 
         try {
             parser.parseArgument(args);
-
         } catch (CmdLineException e) {
             e.printStackTrace();
         }
         if (settings.isFirstTest()) {
-            suite.addIncludedGroup("first");
-        }
-        else if (settings.isRandomTest()){
-            if (suite.getIncludedGroups().equals("all")){
-               suite.addTest(suite.getTests().get(RandomUtil.generateRandom(0, suite.getTests().size())));
+            suite.getTests().get(0);
+
+
+        } else if (settings.isAllTests()) {
+            for (int i = 0; i < suite.getTests().size(); i++) {
+                suite.addTest(suite.getTests().get(i));
             }
+
+            List<XmlSuite> suites = new ArrayList<>();
+            suites.add(suite);
+
+            testNG.setXmlSuites(suites);
+            testNG.run();
+
         }
-        else if(settings.isAllTests()){
-            suite.addIncludedGroup("all");
-        }
-
-        List<XmlSuite> suites = new ArrayList<>();
-        suites.add(suite);
-
-        testNG.setXmlSuites(suites);
-        testNG.run();
-
     }
-
 }

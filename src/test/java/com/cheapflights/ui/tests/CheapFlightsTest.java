@@ -1,14 +1,13 @@
-package com.cheapflights.tests;
+package com.cheapflights.ui.tests;
 
-import com.cheapflights.entities.TravelInfo;
-import com.cheapflights.abstractpages.AbstractHomePage;
-import com.cheapflights.factory.SearchPageFactory;
-import com.cheapflights.factory.HomePageFactory;
-import com.cheapflights.utils.JsonUtil;
+import com.cheapflights.ui.entities.TravelInfo;
+import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
+import com.cheapflights.ui.page.factory.SearchPageFactory;
+import com.cheapflights.ui.page.factory.HomePageFactory;
+import com.cheapflights.ui.utils.JsonUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterClass;
@@ -41,10 +40,10 @@ public class CheapFlightsTest {
     }
 
 
-    @Test(description = "Fill in form and get the cheapest flight", groups = {"first", "all"})
-    public void chooseTheCheapestFlight() {
+    @Test(description = "Fill in form and get the cheapest flight", parameters = "file")
+    public void chooseTheCheapestFlight(String file) {
         HomePageFactory pageFactory = new HomePageFactory(driver);
-        travelInfo = JsonUtil.readJson("./src/main/resources/TravelInfo.json", TravelInfo.class);
+        travelInfo = JsonUtil.readJson(file, TravelInfo.class);
         homePage = pageFactory.getCorrectPage(driver);
         homePage.chooseOrigin(travelInfo.getOrigin())
                 .chooseDestination(travelInfo.getDestination())
@@ -55,7 +54,7 @@ public class CheapFlightsTest {
                 .modifyDuration(4, 3)
                 .sortByCheapest()
                 .closeFilters();
-        Assert.assertTrue(SearchPageFactory.getCorrectPage(driver).getCheapestFlight() < travelInfo.getAcceptablePrice());
+        Assert.assertTrue(SearchPageFactory.getCorrectPage(driver).getCheapestFlight() <= travelInfo.getAcceptablePrice());
 
     }
 

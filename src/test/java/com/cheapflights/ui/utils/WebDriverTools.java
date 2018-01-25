@@ -1,4 +1,4 @@
-package com.cheapflights.utils;
+package com.cheapflights.ui.utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;

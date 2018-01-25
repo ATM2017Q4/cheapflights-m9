@@ -1,4 +1,4 @@
-package com.cheapflights.listeners;
+package com.cheapflights.common.listeners;
 
 import org.testng.ITestContext;
 import org.testng.ITestListener;

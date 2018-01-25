@@ -1,6 +1,5 @@
-package com.cheapflights.abstractpages;
+package com.cheapflights.ui.page.abstractpages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 

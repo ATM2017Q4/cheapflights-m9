@@ -1,4 +1,4 @@
-package com.cheapflights.utils;
+package com.cheapflights.ui.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -8,7 +8,7 @@ import java.io.FileReader;
 
 public class JsonUtil {
     static Gson gson = new Gson();
-    private static String fileName;
+    public static String fileName;
 
     public static <T> T readJson(String fileName, Class<T> c) {
         try {
@@ -19,6 +19,7 @@ public class JsonUtil {
             return null;
         }
     }
+
 
 
 

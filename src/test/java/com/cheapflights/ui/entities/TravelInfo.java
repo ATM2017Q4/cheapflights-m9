@@ -1,4 +1,4 @@
-package com.cheapflights.entities;
+package com.cheapflights.ui.entities;
 
 public class TravelInfo {
     private String origin;

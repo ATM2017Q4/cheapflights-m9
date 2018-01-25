@@ -1,8 +1,8 @@
-package com.cheapflights.factory;
+package com.cheapflights.ui.page.factory;
 
-import com.cheapflights.abstractpages.AbstractSearchPage;
-import com.cheapflights.desktop.FirstFlightSearchPage;
-import com.cheapflights.desktop.SecondFlightSearchPage;
+import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
+import com.cheapflights.ui.page.pageobjects.FirstFlightSearchPage;
+import com.cheapflights.ui.page.pageobjects.SecondFlightSearchPage;
 import org.openqa.selenium.WebDriver;
 
 

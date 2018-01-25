@@ -1,7 +1,7 @@
-package com.cheapflights.desktop;
+package com.cheapflights.ui.page.pageobjects;
 
-import com.cheapflights.abstractpages.AbstractHomePage;
-import com.cheapflights.utils.WebDriverTools;
+import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
+import com.cheapflights.ui.utils.WebDriverTools;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
