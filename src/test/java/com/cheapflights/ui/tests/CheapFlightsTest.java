@@ -2,16 +2,16 @@ package com.cheapflights.ui.tests;
 
 import com.cheapflights.ui.entities.TravelInfo;
 import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
-import com.cheapflights.ui.page.factory.SearchPageFactory;
 import com.cheapflights.ui.page.factory.HomePageFactory;
+import com.cheapflights.ui.page.factory.SearchPageFactory;
+import com.cheapflights.ui.utils.FileSearchUtil;
 import com.cheapflights.ui.utils.JsonUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import org.testng.annotations.Test;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.AfterClass;
+import org.testng.annotations.*;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -19,7 +19,6 @@ public class CheapFlightsTest {
 
     private WebDriver driver;
     private AbstractHomePage homePage;
-    private TravelInfo travelInfo;
     private String url = "https://cheapflights.com/";
 
 
@@ -40,10 +39,10 @@ public class CheapFlightsTest {
     }
 
 
-    @Test(description = "Fill in form and get the cheapest flight", parameters = "file")
-    public void chooseTheCheapestFlight(String file) {
+    @Test(description = "Fill in form and get the cheapest flight", dataProvider = "dp")
+    public void chooseTheCheapestFlight(TravelInfo travelInfo) {
         HomePageFactory pageFactory = new HomePageFactory(driver);
-        travelInfo = JsonUtil.readJson(file, TravelInfo.class);
+
         homePage = pageFactory.getCorrectPage(driver);
         homePage.chooseOrigin(travelInfo.getOrigin())
                 .chooseDestination(travelInfo.getDestination())
@@ -63,5 +62,17 @@ public class CheapFlightsTest {
         driver.quit();
     }
 
-
+    @DataProvider(name = "dp")
+    public static Object[][] getData() {
+        List<String> files = FileSearchUtil.getDirectoryFiles("./src/main/resources", ".json");
+        Object[][] object = null;
+        for (int i = 0; i < files.size(); i++) {
+            object =  new Object[][]{
+                    new Object[]{JsonUtil.readJson(files.get(i), TravelInfo.class)}
+            };
+        }
+        System.out.println(object.length);
+        return object;
+    }
+    ITes
 }

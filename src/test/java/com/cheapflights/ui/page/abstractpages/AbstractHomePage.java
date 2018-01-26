@@ -7,14 +7,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
+import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
 public abstract class AbstractHomePage {
+
+
     protected static WebDriver driver;
 
     public AbstractHomePage(WebDriver driver) {
 
         this.driver = driver;
-        PageFactory.initElements(this.driver, this);
+        PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(this.driver)), this);
     }
 
     @FindBy(name = "origin")
@@ -46,6 +50,9 @@ public abstract class AbstractHomePage {
         }
         WebDriverTools.waitForVisibilityFluently(driver, driver.findElement(logoXpath), 40, 5);
         return SearchPageFactory.getCorrectPage(driver);
+    }
+    public static WebDriver getDriver() {
+        return driver;
     }
 
 
