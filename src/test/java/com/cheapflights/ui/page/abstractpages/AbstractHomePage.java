@@ -16,7 +16,6 @@ public abstract class AbstractHomePage {
     protected static WebDriver driver;
 
     public AbstractHomePage(WebDriver driver) {
-
         this.driver = driver;
         PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(this.driver)), this);
     }
@@ -51,6 +50,7 @@ public abstract class AbstractHomePage {
         WebDriverTools.waitForVisibilityFluently(driver, driver.findElement(logoXpath), 40, 5);
         return SearchPageFactory.getCorrectPage(driver);
     }
+
     public static WebDriver getDriver() {
         return driver;
     }

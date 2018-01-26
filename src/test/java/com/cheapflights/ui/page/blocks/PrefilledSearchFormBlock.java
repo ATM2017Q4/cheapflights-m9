@@ -2,17 +2,13 @@ package com.cheapflights.ui.page.blocks;
 
 import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
 import com.cheapflights.ui.utils.WebDriverTools;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.annotations.Name;
 
-import java.util.List;
 @Name("Search Form")
 @FindBy(xpath = "//div[@class=\"searchFormWrapper \"]")
-
 public class PrefilledSearchFormBlock extends BaseSearchFormBlock{
 
     @Name("Origin typeahead dropdown")
@@ -28,16 +24,8 @@ public class PrefilledSearchFormBlock extends BaseSearchFormBlock{
     private WebElement departureDateField;
 
     @Name("Date picker")
-    @FindBy(className = "contentContainer")
+    @FindBy(xpath = "//div[@class='contentContainer']")
     private WebElement datePicker;
-
-    @Name("Name of the month")
-    @FindBy(xpath = "(//div[@class=\"col col-month col-month-m\"])[2]//div[@class='monthDisplay']")
-    private WebElement monthName;
-
-    @Name("Arrow to switch months")
-    @FindBy(css = "div[aria-label='Next month']")
-    private WebElement nextArrow;
 
     @Name("Close button for travelers block")
     @FindBy(xpath = "//div[@class=\"cabinTravelerWrapper\"]//div[@class='close']")
@@ -51,14 +39,7 @@ public class PrefilledSearchFormBlock extends BaseSearchFormBlock{
     @FindBy(xpath = "(//div[contains(@id, 'adults')]//button[@title=\"Increment\"])[2]")
     private WebElement adultsPlus;
 
-    @Name("Column with month name")
-    @FindBy(xpath = "(//div[@class=\"col col-month col-month-m\"])[2]")
-    private WebElement monthColumn;
-
-    @Name("")
-    @FindBy(xpath = "(//div[@class='weeks'])[3]//div[@class='day']" )
-    private List<WebElement> dates;
-    //private By dates = By.xpath("(//div[@class='weeks'])[3]//div[@class='day']");
+    private DatePickerBlock datePickerBlock;
 
     @Override
     public void searchOrigin(String from) {
@@ -81,49 +62,16 @@ public class PrefilledSearchFormBlock extends BaseSearchFormBlock{
     public void searchDates(String month, String startDate, String endDate) {
         departureDateField.click();
         WebDriverTools.waitForVisibilityFluently(AbstractHomePage.getDriver(), datePicker, 10, 1);
-
-        while (!(isVisible(monthColumn, monthName, month))) {
-            nextArrow.click();
-        }
-
-        By endDateLocator = By.xpath("(//div[@class='weeks'])[3]//div[contains(text(), '" + endDate + "')]");
-        List<WebElement> duration = dates;
-        for (WebElement day : duration) {
-            if (day.getText().equals(startDate)) {
-                Actions chooser = new Actions(AbstractHomePage.getDriver());
-                chooser.click(day)
-                        .sendKeys(Keys.TAB)
-                        .moveToElement(AbstractHomePage.getDriver().findElement(endDateLocator))
-                        .click(AbstractHomePage.getDriver().findElement(endDateLocator))
-                        .build().perform();
-                break;
-            }
-        }
+        datePickerBlock.searchDates(month, startDate, endDate);
     }
 
     @Override
     public void increaseNumberOfAdults(int number) {
-
         travellersNumber.click();
         for (int i = 1; i < number; i++) {
-
             adultsPlus.click();
         }
         closeButton.click();
-
-
     }
 
-    public boolean isVisible(WebElement monthColumn, WebElement monthName, String text) {
-        boolean result;
-        try {
-            result = (monthColumn.getAttribute("aria-hidden").equals("false")) && monthName.getText().contains(text);
-
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            result = false;
-        }
-        return result;
-
-
-    }
 }

@@ -8,7 +8,6 @@ import java.io.FileReader;
 
 public class JsonUtil {
     static Gson gson = new Gson();
-    public static String fileName;
 
     public static <T> T readJson(String fileName, Class<T> c) {
         try {

@@ -18,7 +18,6 @@ public class FileSearchUtil {
                     path -> path.toString().endsWith(extension));
             for (Path file : stream){
                 files.add(file.toString());
-                System.out.println(file);
             }
 
 

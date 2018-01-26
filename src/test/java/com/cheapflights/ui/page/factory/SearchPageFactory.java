@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 
 public class SearchPageFactory {
 
-    static String searchPageUrl = "https://global.cheapflights.com/flight-search/MOW-TYO";
+    static String searchPageUrl = "https://global.cheapflights.com/flight-search/";
 
 
     public static AbstractSearchPage getCorrectPage(WebDriver driver) {

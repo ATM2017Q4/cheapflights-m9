@@ -6,6 +6,7 @@ import com.cheapflights.ui.page.factory.HomePageFactory;
 import com.cheapflights.ui.page.factory.SearchPageFactory;
 import com.cheapflights.ui.utils.FileSearchUtil;
 import com.cheapflights.ui.utils.JsonUtil;
+import com.cheapflights.ui.utils.RandomUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
@@ -19,9 +20,15 @@ public class CheapFlightsTest {
 
     private WebDriver driver;
     private AbstractHomePage homePage;
-    private String url = "https://cheapflights.com/";
+    private final String url = "https://cheapflights.com/";
+    private static String folderPath = "./src/main/resources/travel-info-files";
+    private static String extension = ".json";
+    TravelInfo travelInfo;
 
-
+    @Factory(dataProvider = "dp2")
+    public CheapFlightsTest(TravelInfo travelInfo){
+        this.travelInfo=travelInfo;
+    }
     @BeforeClass(alwaysRun = true)
     public void launchBrowser() {
         System.setProperty("webdriver.gecko.driver", "./src/main/resources/geckodriver");
@@ -38,9 +45,8 @@ public class CheapFlightsTest {
 
     }
 
-
-    @Test(description = "Fill in form and get the cheapest flight", dataProvider = "dp")
-    public void chooseTheCheapestFlight(TravelInfo travelInfo) {
+    @Test(description = "Fill in form and get the cheapest flight")
+    public void chooseTheCheapestFlight() {
         HomePageFactory pageFactory = new HomePageFactory(driver);
 
         homePage = pageFactory.getCorrectPage(driver);
@@ -62,17 +68,33 @@ public class CheapFlightsTest {
         driver.quit();
     }
 
-    @DataProvider(name = "dp")
-    public static Object[][] getData() {
-        List<String> files = FileSearchUtil.getDirectoryFiles("./src/main/resources", ".json");
-        Object[][] object = null;
-        for (int i = 0; i < files.size(); i++) {
-            object =  new Object[][]{
-                    new Object[]{JsonUtil.readJson(files.get(i), TravelInfo.class)}
+    @DataProvider(name = "dp2")
+    public static Object[][] getDataTwo() {
+        return new Object[][]{
+                    new Object[]{JsonUtil.readJson(FileSearchUtil.getDirectoryFiles(folderPath, extension).get(0), TravelInfo.class)},
+                    new Object[]{JsonUtil.readJson(FileSearchUtil.getDirectoryFiles(folderPath, extension).get(1), TravelInfo.class)}
             };
-        }
-        System.out.println(object.length);
+
+    }
+
+    @DataProvider(name = "dp3")
+    public static Object[][] getDataThree() {
+        List<String> files = FileSearchUtil.getDirectoryFiles(folderPath, extension);
+        Object[][] object = new Object[][]{
+                new Object[]{JsonUtil.readJson(files.get(RandomUtil.generateRandom(0, files.size())), TravelInfo.class)}
+        };
         return object;
     }
-    ITes
+
+    @DataProvider(name = "dp1")
+    public static Object[][] getDataOne() {
+        List<String> files = FileSearchUtil.getDirectoryFiles(folderPath, extension);
+        Object[][] object = new Object[][]{
+                new Object[]{JsonUtil.readJson(files.get(0), TravelInfo.class)}
+        };
+
+        return object;
+    }
+
+
 }
