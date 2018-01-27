@@ -34,9 +34,6 @@ public class EmptyHomePage extends AbstractHomePage {
     @FindBy(css = "div[class='lookup']")
     private WebElement options;
 
-    @FindBy(xpath = "//button[@class='-sunspear']")
-    private WebElement submitButton;
-
     private final By departureDates = By.xpath("//div/table[1]//td");
     private final By returnDates = By.xpath("//div/table[1]//td");
 

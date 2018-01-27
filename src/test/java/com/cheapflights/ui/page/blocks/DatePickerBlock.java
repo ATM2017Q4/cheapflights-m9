@@ -14,7 +14,8 @@ import java.util.List;
 
 @Name("Date picker")
 @FindBy(xpath = "//div[@class='contentContainer']")
-public class DatePickerBlock extends HtmlElement{
+public class DatePickerBlock extends HtmlElement {
+
     @Name("Arrow to switch months")
     @FindBy(css = "div[aria-label='Next month']")
     private WebElement nextArrow;
@@ -27,8 +28,8 @@ public class DatePickerBlock extends HtmlElement{
     @FindBy(xpath = "(//div[@class=\"col col-month col-month-m\"])[2]//div[@class='monthDisplay']")
     private WebElement monthName;
 
-    @Name("")
-    @FindBy(xpath = "(//div[@class='weeks'])[3]//div[@class='day']" )
+    @Name("Table with dates for the chosen month")
+    @FindBy(xpath = "(//div[@class='weeks'])[3]//div[@class='day']")
     private List<WebElement> dates;
 
     public void searchDates(String month, String startDate, String endDate) {
@@ -61,10 +62,7 @@ public class DatePickerBlock extends HtmlElement{
             result = false;
         }
         return result;
-
-
     }
-
 
 
 }

@@ -1,7 +1,6 @@
 package com.cheapflights.ui.page.blocks;
 
 import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
-import com.cheapflights.ui.page.pageobjects.FirstFlightSearchPage;
 import com.cheapflights.ui.utils.WebDriverTools;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -25,15 +24,19 @@ public class FiltersBlock extends HtmlElement{
     @FindBy(name = "1")
     private CheckBox oneStop;
 
+    @Name("Max flight duration sider")
     @FindBy(xpath = "//div[@aria-label='Maximum flight duration']")
     private WebElement slider;
 
+    @Name("Page load progress bar")
     @FindBy(xpath = "//div[contains(@id, 'legdur-content')]//div[contains(@class,'activeRange')]")
     private WebElement progress;
 
+    @Name("Sort section dropdown")
     @FindBy(xpath = "//div[@data-name='sort-section']")
     private WebElement sortSection;
 
+    @Name("Sort section dropdown values")
     @FindBy(xpath = "//div[@data-name='sort-section']//div//div/span")
     private WebElement sortSectionValue;
 

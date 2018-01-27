@@ -19,8 +19,6 @@ public class FileSearchUtil {
             for (Path file : stream){
                 files.add(file.toString());
             }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }

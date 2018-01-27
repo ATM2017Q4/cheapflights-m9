@@ -6,6 +6,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.annotations.Name;
+import ru.yandex.qatools.htmlelements.element.Button;
 
 @Name("Search Form")
 @FindBy(xpath = "//div[@class=\"searchFormWrapper \"]")
@@ -37,7 +38,7 @@ public class PrefilledSearchFormBlock extends BaseSearchFormBlock{
 
     @Name("Increase in number of adults")
     @FindBy(xpath = "(//div[contains(@id, 'adults')]//button[@title=\"Increment\"])[2]")
-    private WebElement adultsPlus;
+    private Button adultsPlus;
 
     private DatePickerBlock datePickerBlock;
 

@@ -1,10 +1,10 @@
 package com.cheapflights.core.runner;
 
-import com.cheapflights.TestsFactory;
-import com.cheapflights.common.listeners.MyAnnotationTransformer;
 import com.cheapflights.common.listeners.TestsListener;
 import com.cheapflights.common.util.Settings;
-import com.cheapflights.ui.tests.CheapFlightsTest;
+import com.cheapflights.core.factory.AllTestsFactory;
+import com.cheapflights.core.factory.FirstTestFactory;
+import com.cheapflights.core.factory.RandomTestFactory;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.testng.ITestNGListener;
@@ -15,9 +15,7 @@ import java.util.List;
 
 
 public class Runner {
-
     public static void main(String[] args) {
-
         Settings settings = new Settings();
         CmdLineParser parser = new CmdLineParser(settings);
         try {
@@ -25,25 +23,18 @@ public class Runner {
         } catch (CmdLineException e) {
             e.printStackTrace();
         }
-
         TestNG testNG = new TestNG();
         List<Class<? extends ITestNGListener>> listener = new ArrayList<>();
         listener.add(TestsListener.class);
         testNG.setListenerClasses(listener);
         if (settings.isFirstTest()) {
-            testNG.setTestClasses(new Class[]{CheapFlightsTest.class});
-            testNG.setAnnotationTransformer(new MyAnnotationTransformer("dp1"));
-            testNG.run();
+            testNG.setTestClasses(new Class[]{FirstTestFactory.class});
         } else if (settings.isAllTests()) {
-            //testNG.setAnnotationTransformer(new MyAnnotationTransformer("dp2"));
-            testNG.setTestClasses(new Class[]{TestsFactory.class});
-            testNG.run();
+            testNG.setTestClasses(new Class[]{AllTestsFactory.class});
         } else if (settings.isRandomTest()) {
-            testNG.setTestClasses(new Class[]{CheapFlightsTest.class});
-            testNG.setAnnotationTransformer(new MyAnnotationTransformer("dp3"));
-            testNG.run();
-
+            testNG.setTestClasses(new Class[]{RandomTestFactory.class});
         }
+        testNG.run();
     }
 }
 

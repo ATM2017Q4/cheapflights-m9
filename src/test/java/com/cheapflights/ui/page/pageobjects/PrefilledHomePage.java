@@ -30,7 +30,7 @@ public class PrefilledHomePage extends AbstractHomePage {
     }
 
     public PrefilledHomePage increaseNumberOfAdults(int number) {
-       searchForm.increaseNumberOfAdults(number);
+        searchForm.increaseNumberOfAdults(number);
         return this;
     }
 
