@@ -26,6 +26,7 @@ public class Runner {
         TestNG testNG = new TestNG();
         List<Class<? extends ITestNGListener>> listener = new ArrayList<>();
         listener.add(TestsListener.class);
+        testNG.setDefaultSuiteName("Cheapest Flight Test");
         testNG.setListenerClasses(listener);
         if (settings.isFirstTest()) {
             testNG.setTestClasses(new Class[]{FirstTestFactory.class});
