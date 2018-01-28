@@ -1,4 +1,4 @@
-package com.cheapflights.core.factory;
+package com.cheapflights.ui.tests.factory;
 
 import com.cheapflights.ui.entities.TravelInfo;
 import com.cheapflights.ui.tests.CheapFlightsTest;
@@ -10,7 +10,7 @@ import org.testng.annotations.Factory;
 import java.util.List;
 
 public class FirstTestFactory {
-    private static String folderPath = "./src/main/resources/travel-info-files";
+    private static String folderPath = "./src/test/resources/";
     private static String extension = ".json";
 
     @Factory

@@ -2,9 +2,9 @@ package com.cheapflights.core.runner;
 
 import com.cheapflights.common.listeners.TestsListener;
 import com.cheapflights.common.util.Settings;
-import com.cheapflights.core.factory.AllTestsFactory;
-import com.cheapflights.core.factory.FirstTestFactory;
-import com.cheapflights.core.factory.RandomTestFactory;
+import com.cheapflights.ui.tests.factory.AllTestsFactory;
+import com.cheapflights.ui.tests.factory.FirstTestFactory;
+import com.cheapflights.ui.tests.factory.RandomTestFactory;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.testng.ITestNGListener;
