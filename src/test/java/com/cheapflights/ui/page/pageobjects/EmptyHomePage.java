@@ -37,7 +37,7 @@ public class EmptyHomePage extends AbstractHomePage {
     private final By departureDates = By.xpath("//div/table[1]//td");
     private final By returnDates = By.xpath("//div/table[1]//td");
 
-
+    @Override
     public EmptyHomePage chooseOrigin(String from) {
         origin.click();
         origin.sendKeys(from);
@@ -49,6 +49,7 @@ public class EmptyHomePage extends AbstractHomePage {
 
     }
 
+    @Override
     public EmptyHomePage chooseDestination(String to) {
         destination.click();
 
@@ -59,6 +60,7 @@ public class EmptyHomePage extends AbstractHomePage {
         return this;
     }
 
+    @Override
     public EmptyHomePage chooseDates(String period, String startDate, String endDate) {
         departureField.click();
         while (!(monthName.getText().contains(period.toUpperCase()))) {
@@ -87,6 +89,7 @@ public class EmptyHomePage extends AbstractHomePage {
 
     }
 
+    @Override
     public EmptyHomePage increaseNumberOfAdults(int number) {
         for (int i = 1; i < number; i++) {
             adultsPlus.click();

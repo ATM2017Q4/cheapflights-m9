@@ -45,6 +45,7 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
 
     private String cheapestFlightXpath = "//div[@class='quicklink cheapest clearfix selected-filter']//span[@class='value']";
 
+    @Override
     public SecondFlightSearchPage chooseNonStopFlights() {
         try {
             WebDriverTools.waitForVisibilityFluently(driver, cheapestFlight, 300, 10);
@@ -60,6 +61,7 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
         return this;
     }
 
+    @Override
     public SecondFlightSearchPage modifyDuration(int divider, int multiplier) {
         durationFilter.click();
         Dimension size = progress.getSize();
@@ -73,12 +75,13 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
         return this;
     }
 
+    @Override
     public void closeFilters() {
         closeButton.click();
         WebDriverTools.waitForInvisibilityExplicitly(driver, updateIndicator, 10);
     }
 
-
+    @Override
     public int getCheapestFlight() {
         String cheapestFlight = driver.findElement(By.xpath(cheapestFlightXpath)).getText();
         int sum = Integer.parseInt(cheapestFlight);

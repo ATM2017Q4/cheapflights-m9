@@ -1,10 +1,11 @@
 package com.cheapflights.ui.page.pageobjects;
 
+import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
 import com.cheapflights.ui.page.blocks.FiltersBlock;
 import com.cheapflights.ui.utils.WebDriverTools;
-import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
-import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.logging.Level;
@@ -24,6 +25,7 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
 
     private static String cheapestFlightXpath = "(//div[@class='above-button']//a[@class='booking-link']/span[@class='price option-text'])[1]";
 
+    @Override
     public FirstFlightSearchPage chooseNonStopFlights() {
         try {
             WebDriverTools.waitForInvisibilityExplicitly(driver, progressBar, 100);
@@ -37,17 +39,20 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
         return this;
     }
 
+    @Override
     public FirstFlightSearchPage modifyDuration(int divider, int multiplier) {
         filtersBlock.modifyDuration(divider, multiplier);
         return this;
     }
 
+    @Override
     public FirstFlightSearchPage sortByCheapest() {
         filtersBlock.sortByCheapest();
         WebDriverTools.waitForAttributeToBe(driver, loadComplete, "class", "resultsListCover tl", 20);
         return this;
     }
 
+    @Override
     public int getCheapestFlight() {
         String[] price;
         int sum;
