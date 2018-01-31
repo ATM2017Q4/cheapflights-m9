@@ -1,7 +1,8 @@
 package com.cheapflights.ui.page.blocks;
 
 import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
-import com.cheapflights.ui.utils.WebDriverTools;
+import com.cheapflights.ui.utils.webdrivertools.AjaxContentWaitDecorator;
+import com.cheapflights.ui.utils.webdrivertools.Wait;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -13,8 +14,8 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 
 @Name("Filters container")
-@FindBy(xpath="//div[@class='filterListContainer']")
-public class FiltersBlock extends HtmlElement{
+@FindBy(xpath = "//div[@class='filterListContainer']")
+public class FiltersBlock extends HtmlElement {
 
     @Name("One stop checkbox")
     @FindBy(name = "2")
@@ -43,11 +44,11 @@ public class FiltersBlock extends HtmlElement{
     private SortDropDownBlock sortDropDownBlock;
 
     public void chooseNonStopFlights() {
-            WebDriverTools.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
-            oneStop.click();
-            WebDriverTools.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
-            twoStops.click();
-            WebDriverTools.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
+        new AjaxContentWaitDecorator(new Wait(AbstractSearchPage.getDriver())).setUpWait();
+        oneStop.click();
+        new AjaxContentWaitDecorator(new Wait(AbstractSearchPage.getDriver())).setUpWait();
+        twoStops.click();
+        new AjaxContentWaitDecorator(new Wait(AbstractSearchPage.getDriver())).setUpWait();
 
     }
 
@@ -64,7 +65,7 @@ public class FiltersBlock extends HtmlElement{
                         (slider, -((sliderWidth / divider) * multiplier), 0)
                 .build()
                 .perform();
-        WebDriverTools.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
+        new AjaxContentWaitDecorator(new Wait(AbstractSearchPage.getDriver())).setUpWait();
 
     }
 
@@ -75,7 +76,6 @@ public class FiltersBlock extends HtmlElement{
         }
 
     }
-
 
 
 }

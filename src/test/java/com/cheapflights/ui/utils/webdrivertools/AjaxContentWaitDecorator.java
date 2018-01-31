@@ -3,30 +3,46 @@ package com.cheapflights.ui.utils.webdrivertools;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 
-public class AjaxContentWaitDecorator extends WaitDecorator {
 
+public class AjaxContentWaitDecorator extends WaitDecorator{
     public AjaxContentWaitDecorator(Wait wait) {
         super(wait);
     }
 
     @Override
-    public boolean waitForExpectedCondition() {
-        return waitForJSandJQueryToLoad(Wait.getDriver());
+    public void setUpWait() {
+        super.setUpWait();
+        this.createWait().until(waitForJSandJQueryToLoad());
+
     }
 
-    public static boolean waitForJSandJQueryToLoad(WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        ExpectedCondition<Boolean> jQueryLoad = driver1 -> {
-            try {
-                return ((Long) ((JavascriptExecutor) driver1).executeScript("return jQuery.active") == 0);
-            } catch (Exception e) {
-                return true;
+    @Override
+    public FluentWait createWait() {
+        return super.createWait();
+    }
+
+
+    public ExpectedCondition<Boolean> waitForJSandJQueryToLoad(){
+
+        ExpectedCondition<Boolean> jQueryLoad = new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver driver) {
+                try {
+                    return ((Long) ((JavascriptExecutor) driver).executeScript("return jQuery.active") == 0);
+                } catch (Exception e) {
+                    return true;
+                }
             }
         };
-        ExpectedCondition<Boolean> jsLoad = driver12 -> ((JavascriptExecutor) driver12).executeScript("return document.readyState")
-                .toString().equals("complete");
-        return wait.until(jQueryLoad) && wait.until(jsLoad);
+        ExpectedCondition<Boolean> jsLoad = new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver driver) {
+                return ((JavascriptExecutor) driver).executeScript("return document.readyState")
+                        .toString().equals("complete");
+            }
+        };
+        return ExpectedConditions.and((jQueryLoad),(jsLoad));
+
     }
 }

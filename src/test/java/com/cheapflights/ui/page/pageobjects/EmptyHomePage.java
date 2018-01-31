@@ -1,7 +1,8 @@
 package com.cheapflights.ui.page.pageobjects;
 
 import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
-import com.cheapflights.ui.utils.WebDriverTools;
+import com.cheapflights.ui.utils.webdrivertools.VisibilityWaitDecorator;
+import com.cheapflights.ui.utils.webdrivertools.Wait;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -41,7 +42,7 @@ public class EmptyHomePage extends AbstractHomePage {
     public EmptyHomePage chooseOrigin(String from) {
         origin.click();
         origin.sendKeys(from);
-        WebDriverTools.waitForVisibilityFluently(driver, options, 2, 1);
+        new VisibilityWaitDecorator(new Wait(driver, options, 2, 1)).setUpWait();
         origin.sendKeys(Keys.ARROW_DOWN);
         origin.sendKeys(Keys.ENTER);
         return this;
@@ -52,9 +53,8 @@ public class EmptyHomePage extends AbstractHomePage {
     @Override
     public EmptyHomePage chooseDestination(String to) {
         destination.click();
-
         destination.sendKeys(to);
-        WebDriverTools.waitForVisibilityFluently(driver, options, 2, 1);
+        new VisibilityWaitDecorator(new Wait(driver, options, 2, 1)).setUpWait();
         destination.sendKeys(Keys.ARROW_DOWN);
         destination.sendKeys(Keys.ENTER);
         return this;
@@ -86,7 +86,6 @@ public class EmptyHomePage extends AbstractHomePage {
             }
         }
         return this;
-
     }
 
     @Override

@@ -1,7 +1,10 @@
 package com.cheapflights.ui.page.pageobjects;
 
 import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
-import com.cheapflights.ui.utils.WebDriverTools;
+import com.cheapflights.ui.utils.webdrivertools.AjaxContentWaitDecorator;
+import com.cheapflights.ui.utils.webdrivertools.InvisibilityWaitDecorator;
+import com.cheapflights.ui.utils.webdrivertools.VisibilityWaitDecorator;
+import com.cheapflights.ui.utils.webdrivertools.Wait;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -48,13 +51,13 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
     @Override
     public SecondFlightSearchPage chooseNonStopFlights() {
         try {
-            WebDriverTools.waitForVisibilityFluently(driver, cheapestFlight, 300, 10);
+           new VisibilityWaitDecorator(new Wait(driver, cheapestFlight, 300, 10)).setUpWait();
         } catch (org.openqa.selenium.NoSuchElementException e) {
             logger.log(Level.SEVERE, "Driver was unable to locate the element: either the page didn't load properly or the element doesn't exist");
-            WebDriverTools.waitForVisibilityFluently(driver, cheapestFlight, 150, 10);
+            new VisibilityWaitDecorator(new Wait(driver, cheapestFlight, 150, 10)).setUpWait();
         } finally {
             stopsFilter.click();
-            WebDriverTools.waitForJSandJQueryToLoad(driver);
+            new AjaxContentWaitDecorator(new Wait(AbstractSearchPage.getDriver())).setUpWait();
             oneStop.click();
             multiStops.click();
         }
@@ -78,7 +81,7 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
     @Override
     public void closeFilters() {
         closeButton.click();
-        WebDriverTools.waitForInvisibilityExplicitly(driver, updateIndicator, 10);
+        new InvisibilityWaitDecorator(new Wait(driver, updateIndicator, 10)).setUpWait();
     }
 
     @Override

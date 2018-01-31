@@ -2,6 +2,8 @@ package com.cheapflights.ui.page.abstractpages;
 
 import com.cheapflights.ui.page.factory.SearchPageFactory;
 import com.cheapflights.ui.utils.WebDriverTools;
+import com.cheapflights.ui.utils.webdrivertools.VisibilityWaitDecorator;
+import com.cheapflights.ui.utils.webdrivertools.Wait;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -47,7 +49,7 @@ public abstract class AbstractHomePage {
                 driver.switchTo().window(childWindow);
             }
         }
-        WebDriverTools.waitForVisibilityFluently(driver, driver.findElement(logoXpath), 40, 5);
+        new VisibilityWaitDecorator(new Wait(driver, driver.findElement(logoXpath), 40, 5)).setUpWait();
         return SearchPageFactory.getCorrectPage(driver);
     }
 

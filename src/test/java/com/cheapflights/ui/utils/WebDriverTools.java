@@ -32,15 +32,21 @@ public class WebDriverTools {
 
     public static boolean waitForJSandJQueryToLoad(WebDriver driver) {
         WebDriverWait wait = new WebDriverWait(driver, 30);
-        ExpectedCondition<Boolean> jQueryLoad = driver1 -> {
-            try {
-                return ((Long) ((JavascriptExecutor) driver1).executeScript("return jQuery.active") == 0);
-            } catch (Exception e) {
-                return true;
+        ExpectedCondition<Boolean> jQueryLoad = new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver driver) {
+                try {
+                    return ((Long) ((JavascriptExecutor) driver).executeScript("return jQuery.active") == 0);
+                } catch (Exception e) {
+                    return true;
+                }
             }
         };
-        ExpectedCondition<Boolean> jsLoad = driver12 -> ((JavascriptExecutor) driver12).executeScript("return document.readyState")
-                .toString().equals("complete");
+        ExpectedCondition<Boolean> jsLoad = new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver driver) {
+                return ((JavascriptExecutor) driver).executeScript("return document.readyState")
+                        .toString().equals("complete");
+            }
+        };
         return wait.until(jQueryLoad) && wait.until(jsLoad);
     }
 

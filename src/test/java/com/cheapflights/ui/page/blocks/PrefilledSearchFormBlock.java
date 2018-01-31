@@ -1,7 +1,7 @@
 package com.cheapflights.ui.page.blocks;
 
 import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
-import com.cheapflights.ui.utils.webdrivertools.FluentWaitDecorator;
+import com.cheapflights.ui.utils.webdrivertools.VisibilityWaitDecorator;
 import com.cheapflights.ui.utils.webdrivertools.Wait;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -51,7 +51,7 @@ public class PrefilledSearchFormBlock extends BaseSearchFormBlock{
         origin.click();
         origin.clear();
         origin.sendKeys(from);
-        new FluentWaitDecorator(new Wait(driver), originOptions, 2, 1).waitForExpectedCondition();
+        new VisibilityWaitDecorator(new Wait(driver, originOptions, 2, 1)).setUpWait();
         origin.sendKeys(Keys.ENTER);
     }
 
@@ -59,14 +59,14 @@ public class PrefilledSearchFormBlock extends BaseSearchFormBlock{
     public void searchDestination(String to) {
         destination.click();
         destination.sendKeys(to);
-        new FluentWaitDecorator(new Wait(driver), destinationOptions, 2, 1).waitForExpectedCondition();
+        new VisibilityWaitDecorator(new Wait(driver, destinationOptions, 2, 1)).setUpWait();
         destination.sendKeys(Keys.ENTER);
     }
 
     @Override
     public void searchDates(String month, String startDate, String endDate) {
         departureDateField.click();
-        new FluentWaitDecorator(new Wait(driver), datePicker, 10, 1);
+        new VisibilityWaitDecorator(new Wait(driver, datePicker, 10, 1)).setUpWait();
         datePickerBlock.searchDates(month, startDate, endDate);
     }
 

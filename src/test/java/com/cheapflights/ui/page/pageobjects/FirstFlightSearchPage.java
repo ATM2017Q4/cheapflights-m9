@@ -2,7 +2,9 @@ package com.cheapflights.ui.page.pageobjects;
 
 import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
 import com.cheapflights.ui.page.blocks.FiltersBlock;
-import com.cheapflights.ui.utils.WebDriverTools;
+import com.cheapflights.ui.utils.webdrivertools.AttributeWaitDecorator;
+import com.cheapflights.ui.utils.webdrivertools.InvisibilityWaitDecorator;
+import com.cheapflights.ui.utils.webdrivertools.Wait;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -28,7 +30,7 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
     @Override
     public FirstFlightSearchPage chooseNonStopFlights() {
         try {
-            WebDriverTools.waitForInvisibilityExplicitly(driver, progressBar, 100);
+            new InvisibilityWaitDecorator(new Wait(driver, progressBar, 100)).setUpWait();
         } catch (org.openqa.selenium.TimeoutException e) {
             logger.log(Level.SEVERE, "Driver was unable to locate the element during the specified amount of time", e);
         } catch (org.openqa.selenium.NoSuchElementException e) {
@@ -48,7 +50,7 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
     @Override
     public FirstFlightSearchPage sortByCheapest() {
         filtersBlock.sortByCheapest();
-        WebDriverTools.waitForAttributeToBe(driver, loadComplete, "class", "resultsListCover tl", 20);
+        new AttributeWaitDecorator(new Wait(driver, loadComplete, "class", "resultsListCover tl", 20)).setUpWait();
         return this;
     }
 
