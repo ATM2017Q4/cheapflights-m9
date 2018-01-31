@@ -1,8 +1,10 @@
 package com.cheapflights.ui.page.blocks;
 
 import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
-import com.cheapflights.ui.utils.WebDriverTools;
+import com.cheapflights.ui.utils.webdrivertools.FluentWaitDecorator;
+import com.cheapflights.ui.utils.webdrivertools.Wait;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.annotations.Name;
@@ -11,6 +13,8 @@ import ru.yandex.qatools.htmlelements.element.Button;
 @Name("Search Form")
 @FindBy(xpath = "//div[@class=\"searchFormWrapper \"]")
 public class PrefilledSearchFormBlock extends BaseSearchFormBlock{
+
+    private WebDriver driver = AbstractHomePage.getDriver();
 
     @Name("Origin typeahead dropdown")
     @FindBy(xpath = "//div[contains(@id, 'origin-smartbox-dropdown')]")
@@ -47,7 +51,7 @@ public class PrefilledSearchFormBlock extends BaseSearchFormBlock{
         origin.click();
         origin.clear();
         origin.sendKeys(from);
-        WebDriverTools.waitForVisibilityFluently(AbstractHomePage.getDriver(), originOptions, 2, 1);
+        new FluentWaitDecorator(new Wait(driver), originOptions, 2, 1).waitForExpectedCondition();
         origin.sendKeys(Keys.ENTER);
     }
 
@@ -55,14 +59,14 @@ public class PrefilledSearchFormBlock extends BaseSearchFormBlock{
     public void searchDestination(String to) {
         destination.click();
         destination.sendKeys(to);
-        WebDriverTools.waitForVisibilityFluently(AbstractHomePage.getDriver(), destinationOptions, 2, 1);
+        new FluentWaitDecorator(new Wait(driver), destinationOptions, 2, 1).waitForExpectedCondition();
         destination.sendKeys(Keys.ENTER);
     }
 
     @Override
     public void searchDates(String month, String startDate, String endDate) {
         departureDateField.click();
-        WebDriverTools.waitForVisibilityFluently(AbstractHomePage.getDriver(), datePicker, 10, 1);
+        new FluentWaitDecorator(new Wait(driver), datePicker, 10, 1);
         datePickerBlock.searchDates(month, startDate, endDate);
     }
 
