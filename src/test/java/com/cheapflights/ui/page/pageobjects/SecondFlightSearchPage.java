@@ -51,14 +51,18 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
     @Override
     public SecondFlightSearchPage chooseNonStopFlights() {
         try {
-           new VisibilityWaitDecorator(new Wait(driver, cheapestFlight, 300, 10)).setUpWait();
+            logger.info("Waiting for the search results page to load");
+            new VisibilityWaitDecorator(new Wait(driver, cheapestFlight, 300, 10)).setUpWait();
         } catch (org.openqa.selenium.NoSuchElementException e) {
             logger.log(Level.SEVERE, "Driver was unable to locate the element: either the page didn't load properly or the element doesn't exist");
             new VisibilityWaitDecorator(new Wait(driver, cheapestFlight, 150, 10)).setUpWait();
         } finally {
+            logger.info("Opening stops filter tab");
             stopsFilter.click();
             new AjaxContentWaitDecorator(new Wait(AbstractSearchPage.getDriver())).setUpWait();
+            logger.info("Unchecking one stop checkbox");
             oneStop.click();
+            logger.info("Unchecking multi stops checkbox");
             multiStops.click();
         }
         return this;
@@ -66,10 +70,12 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
 
     @Override
     public SecondFlightSearchPage modifyDuration(int divider, int multiplier) {
+        logger.info("Opening duration tab");
         durationFilter.click();
         Dimension size = progress.getSize();
         int sliderWidth = size.getWidth();
         Actions builder = new Actions(driver);
+        logger.info("Modifying flight duration");
         builder
                 .dragAndDropBy
                         (slider, -((sliderWidth / divider) * multiplier), 0)
@@ -80,12 +86,15 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
 
     @Override
     public void closeFilters() {
+        logger.info("Closing filters tab");
         closeButton.click();
+        logger.info("Waiting for page to update in accordance with the chosen filters");
         new InvisibilityWaitDecorator(new Wait(driver, updateIndicator, 10)).setUpWait();
     }
 
     @Override
     public int getCheapestFlight() {
+        logger.info("Finding the element with the ");
         String cheapestFlight = driver.findElement(By.xpath(cheapestFlightXpath)).getText();
         int sum = Integer.parseInt(cheapestFlight);
         return sum;

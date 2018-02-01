@@ -40,21 +40,27 @@ public class EmptyHomePage extends AbstractHomePage {
 
     @Override
     public EmptyHomePage chooseOrigin(String from) {
+        logger.info("Clicking in the origin field and clearing it");
         origin.click();
+        logger.info("Sending " + from + "as origin name");
         origin.sendKeys(from);
+        logger.info("Waiting for the dropdown to appear");
         new VisibilityWaitDecorator(new Wait(driver, options, 2, 1)).setUpWait();
+        logger.info("Choosing the origin and all airports");
         origin.sendKeys(Keys.ARROW_DOWN);
         origin.sendKeys(Keys.ENTER);
         return this;
-
-
     }
 
     @Override
     public EmptyHomePage chooseDestination(String to) {
+        logger.info("Clicking in the destination field and clearing it");
         destination.click();
+        logger.info("Sending " + to + "as destination name");
         destination.sendKeys(to);
+        logger.info("Waiting for the dropdown to appear");
         new VisibilityWaitDecorator(new Wait(driver, options, 2, 1)).setUpWait();
+        logger.info("Choosing the destination and all airports");
         destination.sendKeys(Keys.ARROW_DOWN);
         destination.sendKeys(Keys.ENTER);
         return this;
@@ -62,7 +68,9 @@ public class EmptyHomePage extends AbstractHomePage {
 
     @Override
     public EmptyHomePage chooseDates(String period, String startDate, String endDate) {
+        logger.info("Clicking in the departure date field");
         departureField.click();
+        logger.info("Searching for " + period + "and selecting dates of departure");
         while (!(monthName.getText().contains(period.toUpperCase()))) {
             nextButton.click();
 
@@ -76,8 +84,10 @@ public class EmptyHomePage extends AbstractHomePage {
             }
         }
 
+        logger.info("Clicking in the arrival date field");
         arrivalField.click();
 
+        logger.info("Searching for " + period + "and selecting dates of arrival");
         List<WebElement> arrival = driver.findElements(returnDates);
         for (WebElement cell : arrival) {
             if (cell.getText().equals(endDate)) {
@@ -90,6 +100,7 @@ public class EmptyHomePage extends AbstractHomePage {
 
     @Override
     public EmptyHomePage increaseNumberOfAdults(int number) {
+        logger.info("Increasing the number of adults to " + number);
         for (int i = 1; i < number; i++) {
             adultsPlus.click();
         }

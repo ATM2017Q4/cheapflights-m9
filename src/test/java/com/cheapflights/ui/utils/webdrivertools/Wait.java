@@ -5,11 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
 
+import java.util.logging.Logger;
+
 public class Wait implements IWait {
 
     private WebDriver driver;
-
-
 
     private WebElement webElement;
     private int timeout;
@@ -45,11 +45,11 @@ public class Wait implements IWait {
     public Wait(WebDriver driver) {
         this.driver = driver;
     }
-
+    protected Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Override
     public void setUpWait() {
-        System.out.println("Waiting for visibility of the element");
+        logger.info("Choosing the wait");
     }
 
     @Override
@@ -84,12 +84,5 @@ public class Wait implements IWait {
     public WebDriver getDriver() {
         return driver;
     }
-
-    //    @Override
-//    public FluentWait waitFor(int timeOut) {
-//        WebDriverWait webDriverWait = new WebDriverWait(getDriver(), timeOut);
-//        return webDriverWait;
-//    }
-
 
 }
